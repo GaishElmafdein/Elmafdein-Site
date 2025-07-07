@@ -2,18 +2,27 @@
   "name": "gaish-elmafdein",
   "type": "module",
   "version": "0.0.1",
+  "description": "A simple Astro project",
+  "private": true,
   "engines": {
-    "node": "18.20.0"
+    "node": ">=18.20.0"
   },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "start": "npx serve dist",
-    "astro": "astro"
+    "start": "astro preview",
+    "serve": "npx serve dist",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.astro",
+    "format": "prettier --write ."
   },
   "dependencies": {
-    "astro": "^4.5.11",
+    "astro": "^4.15.0"
+  },
+  "devDependencies": {
+    "@astrojs/ts-plugin": "^1.1.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.0",
     "serve": "^14.2.4"
   }
 }
