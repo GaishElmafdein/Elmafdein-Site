@@ -3,19 +3,17 @@
   "type": "module",
   "version": "0.0.1",
   "engines": {
-  "node": "18.20.0"
-},
-
+    "node": "18.20.0"
+  },
   "scripts": {
-  "dev": "astro dev",
-  "build": "astro build",
-  "preview": "astro preview",
-  "start": "npx serve dist",
-  "astro": "astro"
-}
-,
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "start": "npx serve dist",
+    "astro": "astro"
+  },
   "dependencies": {
-    "astro": "^5.11.0",
+    "astro": "^4.5.11",
     "serve": "^14.2.4"
   }
 }
