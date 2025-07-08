@@ -11,18 +11,18 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "start": "astro preview",
-    "serve": "npx serve dist",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.astro",
+    "start": "node ./dist/server/entry.mjs",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx,.astro",
     "format": "prettier --write ."
   },
   "dependencies": {
-    "astro": "^4.15.0"
+    "@astrojs/node": "^9.3.0",
+    "astro": "^5.11.0",
+    "serve": "^14.2.4"
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "^1.1.0",
     "eslint": "^8.57.0",
-    "prettier": "^3.3.0",
-    "serve": "^14.2.4"
+    "prettier": "^3.3.0"
   }
 }
