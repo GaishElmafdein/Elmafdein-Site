@@ -6,8 +6,8 @@ export default defineConfig({
   adapter: node({ mode: 'standalone' }),
   vite: {
     server: {
-      host: true, // ⬅️ دي أهم حاجة بتخلي السيرفر يشتغل على 0.0.0.0
-      port: process.env.PORT || 8080
+      host: '0.0.0.0', // مهم جداً: السماح بالاتصال من أي IP
+      port: process.env.PORT || 8080 // Railway يرسل PORT ديناميكي
     }
   }
 });
