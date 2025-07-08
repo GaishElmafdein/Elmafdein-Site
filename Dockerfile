@@ -2,7 +2,7 @@
 FROM node:18-alpine AS builder
 WORKDIR /app
 
-# نسخ package.json للاستفادة من Docker layer caching
+# نسخ package.json للاستفادة من caching
 COPY package*.json ./
 RUN npm install
 
@@ -14,14 +14,14 @@ RUN npm run build
 FROM node:18-alpine AS runner
 WORKDIR /app
 
-# نسخ ملفات البناء فقط - هذا يقلل حجم الحاوية النهائية
+# نسخ الملفات المبنية فقط
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./
 
-# تعيين البورت وبيئة Railway
+# إعداد البورت
 EXPOSE 8080
 ENV PORT=8080
 
-# تشغيل السيرفر الحقيقي الخاص بـ Astro SSR
+# ✅ أهم نقطة: تشغيل Astro SSR
 CMD ["node", "./dist/server/entry.mjs"]
