@@ -1,42 +1,31 @@
-# ============ 🏗️ مرحلة البناء ============
-
+# -----------------------
+# 🛠️ مرحلة البناء (Build)
+# -----------------------
 FROM node:18-alpine AS builder
 WORKDIR /app
 
-# انسخ package.json للاستفادة من Docker caching
+# انسخ ملفات الباكيج أولًا للاستفادة من الكاش
 COPY package*.json ./
 RUN npm install
 
-# انسخ باقي الملفات وابني المشروع
+# انسخ باقي ملفات المشروع وابني الموقع
 COPY . .
 RUN npm run build
 
-# ============ 🚀 مرحلة التشغيل ============
-
+# -----------------------
+# 🚀 مرحلة التشغيل (Serve)
+# -----------------------
 FROM node:18-alpine AS runner
 WORKDIR /app
 
-# أضف مستخدم غير root لأمان أفضل
-RUN addgroup -S nodejs && adduser -S astro -G nodejs
-
-# انسخ الملفات المبنية
+# انسخ الملفات الناتجة من مرحلة البناء
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./
+COPY --from=builder /app/node_modules ./node_modules
 
-# تغيير صلاحيات الملفات
-RUN chown -R astro:nodejs /app
-
-# استخدم المستخدم غير root
-USER astro
-
-# تحديد البورت للتشغيل
-EXPOSE 8080
+# إعداد البورت وENV المطلوب من Railway
 ENV PORT=8080
+EXPOSE 8080
 
-# فحص الصحة (اختياري لكنه مفيد في Railway)
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:8080', res => process.exit(res.statusCode === 200 ? 0 : 1))"
-
-# أمر التشغيل
-CMD ["node", "./dist/server/entry.mjs"]
+# شغّل السيرفر باستخدام serve
+CMD ["npx", "serve", "dist", "--single", "--listen", "8080"]
