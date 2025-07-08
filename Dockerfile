@@ -1,31 +1,27 @@
-# -----------------------
-# 🛠️ مرحلة البناء (Build)
-# -----------------------
+# 🛠️ مرحلة البناء (Build Stage)
 FROM node:18-alpine AS builder
 WORKDIR /app
 
-# انسخ ملفات الباكيج أولًا للاستفادة من الكاش
+# نسخ package.json أولاً للاستفادة من Docker layer caching
 COPY package*.json ./
 RUN npm install
 
-# انسخ باقي ملفات المشروع وابني الموقع
+# نسخ باقي الملفات وبناء المشروع
 COPY . .
 RUN npm run build
 
-# -----------------------
-# 🚀 مرحلة التشغيل (Serve)
-# -----------------------
+# 🚀 مرحلة التشغيل (Production Stage)
 FROM node:18-alpine AS runner
 WORKDIR /app
 
-# انسخ الملفات الناتجة من مرحلة البناء
+# نسخ الملفات المبنية فقط (هذا يقلل حجم الحاوية النهائية بشكل كبير)
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/package.json ./
 COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
 
-# إعداد البورت وENV المطلوب من Railway
-ENV PORT=8080
+# تعريف البورت - Railway يحتاج هذا للتوجيه الصحيح
 EXPOSE 8080
+ENV PORT=8080
 
-# شغّل السيرفر باستخدام serve
-CMD ["npx", "serve", "dist", "--single", "--listen", "8080"]
+# تشغيل السيرفر الفعلي لـ Astro SSR
+CMD ["node", "./dist/server/entry.mjs"]
