@@ -1,28 +1,20 @@
 {
   "name": "gaish-elmafdein",
   "type": "module",
-  "version": "0.0.1",
-  "description": "A simple Astro project",
-  "private": true,
-  "engines": {
-    "node": ">=18.20.0"
-  },
+  "version": "1.0.0",
+  "description": "Official site for Gaish Elmafdein using Astro SSR",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "start": "node ./dist/server/entry.mjs",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx,.astro",
-    "format": "prettier --write ."
+    "preview": "node ./dist/server/entry.mjs",
+    "start": "node ./dist/server/entry.mjs"
   },
   "dependencies": {
-    "@astrojs/node": "^9.3.0",
-    "astro": "^5.11.0",
-    "serve": "^14.2.4"
+    "@astrojs/node": "^5.0.0",
+    "astro": "^4.6.0"
   },
   "devDependencies": {
-    "@astrojs/ts-plugin": "^1.1.0",
-    "eslint": "^8.57.0",
-    "prettier": "^3.3.0"
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.5"
   }
 }
