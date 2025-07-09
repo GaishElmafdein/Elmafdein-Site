@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "start": "astro preview --host 0.0.0.0"
+    "start": "node ./dist/server/entry.mjs"
   },
   "dependencies": {
-    "astro": "^4.0.0",
-    "@astrojs/node": "^8.0.0"
+    "@astrojs/node": "^8.3.4",
+    "astro": "^4.0.0"
   }
 }
