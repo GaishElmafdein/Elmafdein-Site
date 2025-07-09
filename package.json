@@ -1,15 +1,15 @@
 {
-  "name": "gaish-elmafdein",
   "type": "module",
   "version": "1.0.0",
   "description": "Official site for Gaish Elmafdein using Astro SSR",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "start": "node ./dist/server/entry.mjs"
+    "start": "astro preview --host 0.0.0.0",
+    "preview": "astro preview --host 0.0.0.0"
   },
   "dependencies": {
-    "@astrojs/node": "^8.3.4",
-    "astro": "^4.0.0"
+    "@astrojs/node": "^9.3.0",
+    "astro": "^5.11.0"
   }
 }
