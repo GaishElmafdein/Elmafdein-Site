@@ -22,3 +22,16 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Python
+backend/.venv/
+backend/__pycache__/
+backend/*.pyc
+
+# Next.js / Node (frontend)
+gaish-elmafdein-nextjs/.next/
+gaish-elmafdein-nextjs/node_modules/
+
+# Logs & caches
+*.log
+cache/
