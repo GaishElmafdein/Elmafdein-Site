@@ -1,0 +1,132 @@
+/**
+ * Orthodox Cathedral Fonts
+ * ------------------------------------------------------------
+ * Sacred typography for Arabic (Cairo) and Latin (Inter) text
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lemonada:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Changa:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+
+:root {
+  /* Sacred Color Palette */
+  --color-sacred-gold: #f6c453;
+  --color-sacred-gold-light: #ffd966;
+  --color-sacred-gold-dark: #d4a43a;
+  --color-sacred-amber: #fbbf24;
+  --color-sacred-maroon: #991b1b;
+  --color-sacred-slate: #1e293b;
+  --color-sacred-zinc: #18181b;
+  
+  /* Typography */
+  --font-arabic: 'Cairo', 'Noto Kufi Arabic', sans-serif;
+  --font-arabic-elegant: 'Lemonada', 'Cairo', 'Noto Kufi Arabic', cursive;
+  --font-arabic-strong: 'Changa', 'Cairo', 'Noto Kufi Arabic', sans-serif;
+  --font-latin: 'Inter', 'Segoe UI', sans-serif;
+  
+  /* Sacred Patterns */
+  --pattern-orthodox-cross: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='rgba(246,196,83,0.05)' stroke-width='2'%3E%3Cpath d='M80 5 v150 M5 80 h150'/%3E%3Ccircle cx='80' cy='80' r='24'/%3E%3Cpath d='M80 30 l0 20 M80 110 l0 20 M30 80 l20 0 M110 80 l20 0'/%3E%3C/g%3E%3C/svg%3E");
+  
+  /* Gradients */
+  --gradient-sacred: linear-gradient(135deg, var(--color-sacred-gold) 0%, var(--color-sacred-amber) 50%, #f59e0b 100%);
+  --gradient-cathedral: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #020617 100%);
+}
+
+/* Font Classes */
+.font-arabic {
+  font-family: var(--font-arabic);
+  font-feature-settings: 'liga' 1, 'kern' 1;
+}
+
+.font-arabic-elegant {
+  font-family: var(--font-arabic-elegant);
+  font-feature-settings: 'liga' 1, 'kern' 1;
+  letter-spacing: .5px;
+}
+
+.font-arabic-strong {
+  font-family: var(--font-arabic-strong);
+  font-weight: 700;
+  font-feature-settings: 'liga' 1, 'kern' 1;
+  letter-spacing: .25px;
+}
+
+.font-latin {
+  font-family: var(--font-latin);
+  font-feature-settings: 'liga' 1, 'kern' 1;
+}
+
+/* Sacred Text Styles */
+.text-sacred-gradient {
+  background: var(--gradient-sacred);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: sacred-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes sacred-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Sacred Hover Effects */
+.sacred-glow:hover {
+  box-shadow: 
+    0 0 20px rgba(246, 196, 83, 0.3),
+    0 0 40px rgba(246, 196, 83, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Marquee Animation */
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Sacred Background Pattern */
+.bg-sacred-pattern {
+  background-image: 
+    radial-gradient(ellipse at top left, rgba(246, 196, 83, 0.08), transparent 40%), 
+    radial-gradient(ellipse at bottom right, rgba(246, 196, 83, 0.06), transparent 40%), 
+    var(--pattern-orthodox-cross);
+  background-size: cover, cover, 160px 160px;
+  background-position: center, center, center;
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .ltr-only {
+  direction: ltr;
+  text-align: left;
+}
+
+[dir="ltr"] .rtl-only {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .text-sacred-gradient {
+    animation: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-sacred-gold: #ffcc00;
+    --color-sacred-amber: #ff9900;
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Gaish Elmafdein - Orthodox Digital Cathedral",
+  "short_name": "Elmafdein",
+  "start_url": "/en",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#f6c453",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

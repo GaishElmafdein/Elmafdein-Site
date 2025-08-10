@@ -1,0 +1,38 @@
+2025-08-07 18:08:35,060 - INFO - 📚 Loaded 20 sample books for immediate access
+2025-08-07 18:08:41,698 - INFO - 🔍 API search request: q='didache', site='None', fresh=False
+2025-08-07 18:08:41,698 - INFO - 🕊️ Performing fresh book search...
+2025-08-07 18:08:41,698 - INFO - 🕊️ Starting Orthodox book search...
+2025-08-07 18:08:41,699 - INFO - 📖 Keyword: 'didache' | Sites: coptic-treasures.com, christianlib.com
+2025-08-07 18:08:41,699 - ERROR - Task exception was never retrieved
+future: <Task finished name='Task-5' coro=<Connection.run() done, defined at C:\Users\minav\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\playwright\_impl\_connection.py:265> exception=NotImplementedError()>
+Traceback (most recent call last):
+  File "C:\Users\minav\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\playwright\_impl\_connection.py", line 272, in run
+    await self._transport.connect()
+  File "C:\Users\minav\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\playwright\_impl\_transport.py", line 135, in connect
+    raise exc
+  File "C:\Users\minav\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\playwright\_impl\_transport.py", line 123, in connect
+    self._proc = await asyncio.create_subprocess_exec(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\subprocess.py", line 223, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 1708, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 503, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+2025-08-07 18:08:41,704 - ERROR - ❌ Search error: 
+2025-08-07 18:09:20,646 - INFO - 🔍 API search request: q='didache', site='None', fresh=False
+2025-08-07 18:09:20,646 - INFO - 📚 Loaded 20 sample books for immediate access
+2025-08-07 18:09:20,647 - INFO - ✅ Search completed in 0.00s, found 1 books
+2025-08-07 18:09:30,414 - INFO - 🔍 API search request: q='كتاب', site='None', fresh=False
+2025-08-07 18:09:30,415 - INFO - 📚 Loaded 20 sample books for immediate access
+2025-08-07 18:09:30,415 - INFO - ✅ Search completed in 0.00s, found 7 books
+2025-08-07 18:10:33,078 - INFO - 📚 Loaded 20 sample books for immediate access
+2025-08-07 18:11:23,181 - INFO - 📚 Loaded 20 sample books for immediate access
+2025-08-07 18:11:44,051 - INFO - 📚 Loaded 20 sample books for immediate access
+2025-08-07 18:12:08,369 - INFO - 🔍 API search request: q='تجسد الكلمة', site='None', fresh=False
+2025-08-07 18:12:08,370 - INFO - 📚 Loaded 20 sample books for immediate access
+2025-08-07 18:12:08,370 - INFO - ✅ Search completed in 0.00s, found 0 books
+2025-08-07 18:13:03,568 - INFO - 📚 Loaded 20 sample books for immediate access

@@ -1,0 +1,16 @@
+name: Warmup Railway
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+jobs:
+  warm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hit health
+        run: |
+          curl -sSf "https://REPLACE_RAILWAY_URL/health" || true
+      - name: Prime library cache
+        run: |
+          curl -sSf "https://REPLACE_RAILWAY_URL/api/library?site=coptic&max_pages=1&max_follow=0" || true

@@ -1,0 +1,8 @@
+fastapi==0.110.0
+uvicorn[standard]==0.27.0
+playwright==1.42.0
+httpx==0.26.0
+beautifulsoup4==4.12.3
+selectolax==0.3.17
+pydantic==2.6.1
+python-multipart==0.0.9

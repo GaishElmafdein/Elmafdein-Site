@@ -1,0 +1,167 @@
+[
+  {
+    "title": "الكتاب المقدس - العهد الجديد",
+    "author": "الكنيسة الأرثوذكسية",
+    "source": "coptic-treasures.com",
+    "details_url": "https://coptic-treasures.com/books/new-testament",
+    "download_url": "https://coptic-treasures.com/downloads/new-testament.pdf",
+    "cover_image": "https://coptic-treasures.com/images/nt-cover.jpg",
+    "lang": "ar",
+    "pages": 450,
+    "size_mb": 12.5
+  },
+  {
+    "title": "The Didache - Teaching of the Twelve Apostles",
+    "author": "Apostolic Fathers",
+    "source": "christianlib.com",
+    "details_url": "https://www.christianlib.com/books/didache",
+    "download_url": "https://www.christianlib.com/downloads/didache.pdf",
+    "cover_image": "https://www.christianlib.com/images/didache.jpg",
+    "lang": "en",
+    "pages": 32,
+    "size_mb": 2.1
+  },
+  {
+    "title": "كتاب الأجبية - صلوات الكنيسة",
+    "author": "الكنيسة القبطية الأرثوذكسية",
+    "source": "coptic-treasures.com",
+    "details_url": "https://coptic-treasures.com/books/agpeya",
+    "download_url": "https://coptic-treasures.com/downloads/agpeya.pdf",
+    "cover_image": "https://coptic-treasures.com/images/agpeya.jpg",
+    "lang": "ar",
+    "pages": 280,
+    "size_mb": 8.2
+  },
+  {
+    "title": "Life of Saint Anthony",
+    "author": "St. Athanasius of Alexandria",
+    "source": "christianlib.com",
+    "details_url": "https://www.christianlib.com/books/st-anthony",
+    "download_url": "https://www.christianlib.com/downloads/st-anthony.pdf",
+    "cover_image": "https://www.christianlib.com/images/st-anthony.jpg",
+    "lang": "en",
+    "pages": 156,
+    "size_mb": 4.8
+  },
+  {
+    "title": "القديس أثناسيوس الرسولي - ضد الأريوسيين",
+    "author": "القديس أثناسيوس الإسكندري",
+    "source": "coptic-treasures.com",
+    "details_url": "https://coptic-treasures.com/books/athanasius-arians",
+    "download_url": "https://coptic-treasures.com/downloads/athanasius-arians.pdf",
+    "cover_image": "https://coptic-treasures.com/images/athanasius.jpg",
+    "lang": "ar",
+    "pages": 320,
+    "size_mb": 11.2
+  },
+  {
+    "title": "On the Incarnation",
+    "author": "St. Athanasius of Alexandria",
+    "source": "christianlib.com",
+    "details_url": "https://www.christianlib.com/books/incarnation",
+    "download_url": "https://www.christianlib.com/downloads/incarnation.pdf",
+    "cover_image": "https://www.christianlib.com/images/incarnation.jpg",
+    "lang": "en",
+    "pages": 98,
+    "size_mb": 3.4
+  },
+  {
+    "title": "كتاب التسبحة المقدسة",
+    "author": "الكنيسة القبطية الأرثوذكسية",
+    "source": "coptic-treasures.com",
+    "details_url": "https://coptic-treasures.com/books/tasbeha",
+    "download_url": "https://coptic-treasures.com/downloads/tasbeha.pdf",
+    "cover_image": "https://coptic-treasures.com/images/tasbeha.jpg",
+    "lang": "ar",
+    "pages": 180,
+    "size_mb": 6.5
+  },
+  {
+    "title": "The Desert Fathers",
+    "author": "Benedicta Ward",
+    "source": "christianlib.com",
+    "details_url": "https://www.christianlib.com/books/desert-fathers",
+    "download_url": "https://www.christianlib.com/downloads/desert-fathers.pdf",
+    "cover_image": "https://www.christianlib.com/images/desert-fathers.jpg",
+    "lang": "en",
+    "pages": 224,
+    "size_mb": 7.1
+  },
+  {
+    "title": "سير القديسين الأقباط",
+    "author": "الأنبا شنودة الثالث",
+    "source": "coptic-treasures.com",
+    "details_url": "https://coptic-treasures.com/books/coptic-saints",
+    "download_url": "https://coptic-treasures.com/downloads/coptic-saints.pdf",
+    "cover_image": "https://coptic-treasures.com/images/saints.jpg",
+    "lang": "ar",
+    "pages": 890,
+    "size_mb": 25.8
+  },
+  {
+    "title": "Orthodoxy and Heresy in Earliest Christianity",
+    "author": "Walter Bauer",
+    "source": "christianlib.com",
+    "details_url": "https://www.christianlib.com/books/orthodoxy-heresy",
+    "download_url": "https://www.christianlib.com/downloads/orthodoxy-heresy.pdf",
+    "cover_image": "https://www.christianlib.com/images/orthodoxy.jpg",
+    "lang": "en",
+    "pages": 340,
+    "size_mb": 12.3
+  },
+  {
+    "title": "كتاب الخولاجي المقدس",
+    "author": "الكنيسة القبطية الأرثوذكسية",
+    "source": "coptic-treasures.com",
+    "details_url": "https://coptic-treasures.com/books/kholagy",
+    "download_url": "https://coptic-treasures.com/downloads/kholagy.pdf",
+    "cover_image": "https://coptic-treasures.com/images/kholagy.jpg",
+    "lang": "ar",
+    "pages": 650,
+    "size_mb": 18.9
+  },
+  {
+    "title": "The Sayings of the Desert Fathers",
+    "author": "Anonymous",
+    "source": "christianlib.com",
+    "details_url": "https://www.christianlib.com/books/sayings-desert-fathers",
+    "download_url": "https://www.christianlib.com/downloads/sayings.pdf",
+    "cover_image": "https://www.christianlib.com/images/sayings.jpg",
+    "lang": "en",
+    "pages": 412,
+    "size_mb": 14.7
+  },
+  {
+    "title": "تفسير إنجيل يوحنا",
+    "author": "القديس يوحنا ذهبي الفم",
+    "source": "coptic-treasures.com",
+    "details_url": "https://coptic-treasures.com/books/john-commentary",
+    "download_url": "https://coptic-treasures.com/downloads/john-commentary.pdf",
+    "cover_image": "https://coptic-treasures.com/images/john-comm.jpg",
+    "lang": "ar",
+    "pages": 780,
+    "size_mb": 22.4
+  },
+  {
+    "title": "Early Christian Doctrines",
+    "author": "J.N.D. Kelly",
+    "source": "christianlib.com",
+    "details_url": "https://www.christianlib.com/books/early-doctrines",
+    "download_url": "https://www.christianlib.com/downloads/early-doctrines.pdf",
+    "cover_image": "https://www.christianlib.com/images/doctrines.jpg",
+    "lang": "en",
+    "pages": 567,
+    "size_mb": 19.2
+  },
+  {
+    "title": "كتاب المزامير - الترجمة السبعينية",
+    "author": "ترجمة الكنيسة القبطية",
+    "source": "coptic-treasures.com",
+    "details_url": "https://coptic-treasures.com/books/psalms-lxx",
+    "download_url": "https://coptic-treasures.com/downloads/psalms-lxx.pdf",
+    "cover_image": "https://coptic-treasures.com/images/psalms.jpg",
+    "lang": "ar",
+    "pages": 210,
+    "size_mb": 7.8
+  }
+]

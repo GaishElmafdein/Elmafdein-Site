@@ -1,0 +1,798 @@
+/**
+ * ✅ CHECKLIST - Global Styles (Tailwind + Sacred Theme)
+ * ✅ Tailwind CSS directives integration
+ * ✅ Sacred Orthodox color palette
+ * ✅ Byzantine-inspired patterns and textures
+ * ✅ RTL/LTR typography support
+ * ✅ Performance-optimized animations
+ * ✅ Accessibility-compliant focus states
+ * ✅ Sacred gradient utilities
+ * ✅ Micro-interaction hover effects
+ * ✅ Responsive design utilities
+ * ✅ Print styles optimization
+ * ⏳ Dark/light mode variants (Phase 2)
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================
+   CSS CUSTOM PROPERTIES (SACRED PALETTE)
+   ======================================== */
+:root {
+  /* Sacred Gold Variations */
+  --sacred-gold: #f6c453;
+  --sacred-gold-light: #ffd966;
+  --sacred-gold-dark: #d4a43a;
+  --sacred-gold-muted: #e6b84a;
+  
+  /* Sacred Amber Spectrum */
+  --sacred-amber: #fbbf24;
+  --sacred-amber-light: #fcd34d;
+  --sacred-amber-dark: #d97706;
+  
+  /* Sacred Maroon Palette */
+  --sacred-maroon: #991b1b;
+  --sacred-maroon-light: #b91c1c;
+  --sacred-maroon-dark: #7f1d1d;
+  
+  /* Sacred Background Variations */
+  --sacred-slate: #1e293b;
+  --sacred-slate-light: #334155;
+  --sacred-slate-dark: #0f172a;
+  --sacred-zinc: #18181b;
+  --sacred-zinc-light: #27272a;
+  --sacred-zinc-dark: #09090b;
+  
+  /* Sacred Gradients */
+  --gradient-sacred-primary: linear-gradient(135deg, var(--sacred-gold) 0%, var(--sacred-amber) 50%, #f59e0b 100%);
+  --gradient-sacred-text: linear-gradient(135deg, var(--sacred-gold-light) 0%, var(--sacred-gold) 50%, var(--sacred-amber) 100%);
+  --gradient-sacred-background: linear-gradient(135deg, var(--sacred-slate-dark) 0%, var(--sacred-zinc) 50%, var(--sacred-slate) 100%);
+  --gradient-sacred-subtle: linear-gradient(135deg, rgba(246, 196, 83, 0.1) 0%, rgba(251, 191, 36, 0.05) 100%);
+  
+  /* Sacred Shadows */
+  --shadow-sacred-sm: 0 2px 8px rgba(246, 196, 83, 0.1);
+  --shadow-sacred-md: 0 4px 16px rgba(246, 196, 83, 0.15);
+  --shadow-sacred-lg: 0 8px 32px rgba(246, 196, 83, 0.2);
+  --shadow-sacred-glow: 0 0 24px rgba(246, 196, 83, 0.3);
+  
+  /* Sacred Patterns (Base64 encoded for performance) */
+  --pattern-orthodox-cross: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='rgba(246,196,83,0.04)' stroke-width='1.5'%3E%3Cpath d='M100 10 v180 M10 100 h180'/%3E%3Ccircle cx='100' cy='100' r='30'/%3E%3Ccircle cx='100' cy='100' r='50'/%3E%3Cpath d='M100 40 l0 20 M100 140 l0 20 M40 100 l20 0 M140 100 l20 0'/%3E%3Cpath d='M100 20 l10 10 l-10 10 l-10 -10 z M100 160 l10 10 l-10 10 l-10 -10 z'/%3E%3C/g%3E%3C/svg%3E");
+  --pattern-byzantine-dots: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='rgba(246,196,83,0.02)'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3Ccircle cx='0' cy='0' r='1'/%3E%3Ccircle cx='60' cy='60' r='1'/%3E%3C/g%3E%3C/svg%3E");
+  
+  /* Typography Scale */
+  --font-size-sacred-display: clamp(2.5rem, 8vw, 6rem);
+  --font-size-sacred-heading: clamp(1.75rem, 4vw, 3rem);
+  --font-size-sacred-subheading: clamp(1.125rem, 2.5vw, 1.5rem);
+  --font-size-sacred-body: clamp(0.875rem, 2vw, 1rem);
+  
+  /* Spacing Scale */
+  --spacing-sacred-xs: 0.25rem;
+  --spacing-sacred-sm: 0.5rem;
+  --spacing-sacred-md: 1rem;
+  --spacing-sacred-lg: 2rem;
+  --spacing-sacred-xl: 4rem;
+  --spacing-sacred-2xl: 8rem;
+  
+  /* Border Radius Scale */
+  --radius-sacred-sm: 0.5rem;
+  --radius-sacred-md: 0.75rem;
+  --radius-sacred-lg: 1rem;
+  --radius-sacred-xl: 1.5rem;
+  --radius-sacred-2xl: 2rem;
+  
+  /* Animation Durations */
+  --duration-sacred-fast: 200ms;
+  --duration-sacred-normal: 300ms;
+  --duration-sacred-slow: 500ms;
+  --duration-sacred-slower: 800ms;
+  
+  /* Z-Index Scale */
+  --z-sacred-dropdown: 1000;
+  --z-sacred-sticky: 1020;
+  --z-sacred-fixed: 1030;
+  --z-sacred-modal: 1040;
+  --z-sacred-popover: 1050;
+  --z-sacred-tooltip: 1060;
+  --z-sacred-toast: 1070;
+}
+
+/* ========================================
+   BASE LAYER - TYPOGRAPHY & RESET
+   ======================================== */
+@layer base {
+  /* Enhanced HTML/Body Reset */
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+  }
+  
+  body {
+    @apply antialiased;
+    font-feature-settings: 'liga' 1, 'kern' 1, 'calt' 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  
+  /* Enhanced Focus Styles for Accessibility */
+  *:focus-visible {
+    outline: none;
+    ring: 2px solid var(--sacred-gold);
+    ring-offset: 2px;
+    ring-offset-color: var(--sacred-slate-dark);
+    border-radius: var(--radius-sacred-sm);
+  }
+  
+  /* Typography Improvements */
+  h1, h2, h3, h4, h5, h6 {
+    font-feature-settings: 'liga' 1, 'kern' 1, 'dlig' 1;
+    text-wrap: balance;
+  }
+  
+  p {
+    text-wrap: pretty;
+    max-width: 75ch;
+  }
+  
+  /* Enhanced Link Styles */
+  a {
+    color: var(--sacred-gold);
+    text-decoration: none;
+    transition: all var(--duration-sacred-fast) ease-out;
+  }
+  
+  a:hover {
+    color: var(--sacred-gold-light);
+  }
+  
+  /* Improved Image Handling */
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Form Element Enhancements */
+  input, button, textarea, select {
+    font-family: inherit;
+    font-feature-settings: inherit;
+  }
+  
+  /* Enhanced Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--sacred-slate-dark);
+    border-radius: var(--radius-sacred-sm);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, var(--sacred-gold-dark), var(--sacred-gold));
+    border-radius: var(--radius-sacred-sm);
+    border: 1px solid var(--sacred-slate);
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, var(--sacred-gold), var(--sacred-gold-light));
+  }
+  
+  /* Selection Styling */
+  ::selection {
+    background: var(--sacred-gold);
+    color: var(--sacred-slate-dark);
+    text-shadow: none;
+  }
+  
+  ::-moz-selection {
+    background: var(--sacred-gold);
+    color: var(--sacred-slate-dark);
+    text-shadow: none;
+  }
+}
+
+/* ========================================
+   COMPONENTS LAYER - SACRED UI PATTERNS
+   ======================================== */
+@layer components {
+  /* Sacred Flame & Smoke Effects for Logo Hero */
+  .sacred-flame-ring {
+  background: conic-gradient(from 0deg, rgba(255,210,90,0.12), rgba(255,140,50,0.35), rgba(160,20,0,0.45), rgba(255,210,90,0.12));
+  filter: blur(32px) saturate(220%) brightness(1.15) hue-rotate(-5deg);
+  animation: flame-spin 14s linear infinite;
+  }
+  .sacred-flame-ring2 {
+  background: conic-gradient(from 180deg, rgba(255,160,70,0.25), rgba(255,240,170,0.08), rgba(140,10,0,0.45), rgba(255,160,70,0.25));
+  filter: blur(46px) brightness(1.35) saturate(210%) hue-rotate(8deg);
+  animation: flame-spin-rev 22s linear infinite;
+    mix-blend-mode: screen;
+  }
+  .sacred-smoke-layer {
+  background: radial-gradient(circle at 50% 60%, rgba(255,210,140,0.22) 0%, rgba(90,20,0,0.45) 50%, rgba(0,0,0,0) 72%);
+  filter: blur(60px) contrast(135%) brightness(1.1);
+  animation: smoke-rise 18s ease-in-out infinite;
+  }
+  .sacred-inner-glow {
+  background: radial-gradient(circle at 50% 55%, rgba(255,230,170,0.45), rgba(255,170,70,0.2) 45%, rgba(0,0,0,0) 72%);
+    mix-blend-mode: screen;
+    pointer-events: none;
+    animation: inner-pulse 5s ease-in-out infinite;
+  }
+  /* Advanced Flame Engine */
+  .sacred-flame-engine {
+    position: relative;
+    width: 520px;
+    height: 520px;
+    filter: blur(14px) saturate(180%);
+  }
+  .sacred-flame-engine .flame-layer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    animation: flame-breathe 6s ease-in-out infinite;
+  }
+  .sacred-flame-engine .flame-1 { width: 360px; height: 360px; background: radial-gradient(circle at 50% 65%, rgba(255,200,120,0.25), rgba(255,120,40,0.08) 55%, transparent 70%); animation-duration: 8s; }
+  .sacred-flame-engine .flame-2 { width: 400px; height: 400px; background: radial-gradient(circle at 50% 60%, rgba(255,170,60,0.28), rgba(180,20,0,0.12) 60%, transparent 78%); animation-duration: 7s; animation-delay: -1.5s; }
+  .sacred-flame-engine .flame-3 { width: 440px; height: 440px; background: radial-gradient(circle at 50% 58%, rgba(255,140,40,0.22), rgba(160,10,0,0.18) 62%, transparent 80%); animation-duration: 9s; animation-delay: -2.2s; }
+  .sacred-flame-engine .flame-4 { width: 480px; height: 480px; background: radial-gradient(circle at 50% 55%, rgba(255,200,140,0.2), rgba(200,40,0,0.15) 58%, transparent 78%); animation-duration: 10s; animation-delay: -3s; }
+  .sacred-flame-engine .flame-5 { width: 520px; height: 520px; background: radial-gradient(circle at 50% 52%, rgba(255,210,150,0.18), rgba(180,30,0,0.12) 55%, transparent 75%); animation-duration: 12s; animation-delay: -4s; }
+  .sacred-flame-engine .flame-6 { width: 560px; height: 560px; background: radial-gradient(circle at 50% 50%, rgba(255,230,170,0.15), rgba(150,20,0,0.1) 50%, transparent 72%); animation-duration: 14s; animation-delay: -5s; }
+  .sacred-flame-engine .flame-tongue {
+    position: absolute;
+    bottom: 50%;
+    width: 22px;
+    height: 120px;
+    background: radial-gradient(circle at 50% 85%, rgba(255,240,210,0.9) 0%, rgba(255,170,40,0.65) 40%, rgba(180,30,0,0.4) 70%, transparent 75%);
+    border-radius: 50% 50% 35% 35%/60% 60% 40% 40%;
+    mix-blend-mode: screen;
+    filter: blur(6px) saturate(180%);
+    animation: flame-tongue-rise 6s ease-in-out infinite;
+    left: 50%;
+    transform-origin: 50% 100%;
+  }
+  /* Sacred Button System */
+  .btn-sacred {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 
+           font-semibold rounded-xl transition-all duration-300 ease-out
+           focus:outline-none focus:ring-2 focus:ring-offset-2 
+           disabled:opacity-50 disabled:cursor-not-allowed
+           transform hover:scale-105 active:scale-95;
+    background: var(--gradient-sacred-primary);
+    color: var(--sacred-slate-dark);
+    box-shadow: var(--shadow-sacred-md);
+    border: 1px solid rgba(246, 196, 83, 0.3);
+  }
+  
+  .btn-sacred:hover {
+    box-shadow: var(--shadow-sacred-glow);
+    border-color: var(--sacred-gold-light);
+  }
+  
+  .btn-sacred:focus {
+    ring-color: var(--sacred-gold);
+    ring-offset-color: var(--sacred-slate-dark);
+  }
+  
+  .btn-sacred-outline {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 
+           font-semibold rounded-xl transition-all duration-300 ease-out
+           bg-transparent border-2 transform hover:scale-105 active:scale-95;
+    border-color: var(--sacred-gold);
+    color: var(--sacred-gold);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  .btn-sacred-outline:hover {
+    background: var(--sacred-gold);
+    color: var(--sacred-slate-dark);
+    box-shadow: var(--shadow-sacred-glow);
+  }
+  
+  .btn-sacred-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 
+           font-medium rounded-lg transition-all duration-200 ease-out
+           bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .btn-sacred-ghost:hover {
+    color: rgba(255, 255, 255, 0.95);
+  }
+  
+  /* Sacred Card System */
+  .card-sacred {
+    @apply rounded-2xl border transition-all duration-300 ease-out;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  
+  .card-sacred:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(246, 196, 83, 0.3);
+    transform: translateY(-2px);
+  }
+  
+  .card-sacred-glow {
+    @apply card-sacred;
+  }
+  
+  .card-sacred-glow:hover {
+    box-shadow: 
+      0 0 0 1px rgba(246, 196, 83, 0.2),
+      0 8px 32px rgba(246, 196, 83, 0.15),
+      0 16px 64px rgba(246, 196, 83, 0.1);
+  }
+  
+  /* Sacred Input System */
+  .input-sacred {
+    @apply w-full px-4 py-3 rounded-xl border transition-all duration-200 ease-out
+           focus:outline-none focus:ring-2 focus:ring-offset-2;
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  .input-sacred::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .input-sacred:focus {
+    background: rgba(0, 0, 0, 0.4);
+    border-color: var(--sacred-gold);
+    ring-color: var(--sacred-gold);
+    ring-offset-color: var(--sacred-slate-dark);
+  }
+  
+  /* Sacred Typography Classes */
+  .text-sacred-display {
+    font-size: var(--font-size-sacred-display);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  
+  .text-sacred-heading {
+    font-size: var(--font-size-sacred-heading);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  
+  .text-sacred-subheading {
+    font-size: var(--font-size-sacred-subheading);
+    font-weight: 500;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.8);
+    text-wrap: pretty;
+  }
+  
+  .text-sacred-body {
+    font-size: var(--font-size-sacred-body);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.75);
+    text-wrap: pretty;
+  }
+  
+  .text-sacred-gradient {
+    background: var(--gradient-sacred-text);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+  }
+  
+  /* Sacred Navigation */
+  .nav-sacred {
+    @apply sticky top-0 z-50 transition-all duration-300 ease-out;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(15, 23, 42, 0.8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .nav-sacred.scrolled {
+    background: rgba(15, 23, 42, 0.95);
+    border-bottom-color: rgba(246, 196, 83, 0.2);
+  }
+  
+  /* Sacred Link Styles */
+  .link-sacred {
+    @apply relative transition-all duration-200 ease-out;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .link-sacred:hover {
+    color: var(--sacred-gold);
+  }
+  
+  .link-sacred::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-sacred-primary);
+    transition: width var(--duration-sacred-normal) ease-out;
+  }
+  
+  .link-sacred:hover::after {
+    width: 100%;
+  }
+  
+  /* Sacred Backdrop */
+  .backdrop-sacred {
+    backdrop-filter: blur(12px) saturate(1.5);
+    -webkit-backdrop-filter: blur(12px) saturate(1.5);
+  }
+}
+
+/* ========================================
+   UTILITIES LAYER - SACRED EXTENSIONS
+   ======================================== */
+@layer utilities {
+  .animate-slow-pulse { animation: slow-pulse 8s ease-in-out infinite; }
+  /* Sacred Background Patterns */
+  .bg-sacred-pattern {
+    background-image: 
+      radial-gradient(ellipse 600px 400px at top left, rgba(246, 196, 83, 0.08), transparent),
+      radial-gradient(ellipse 800px 600px at bottom right, rgba(246, 196, 83, 0.06), transparent),
+      var(--pattern-orthodox-cross);
+    background-size: cover, cover, 200px 200px;
+    background-position: top left, bottom right, center;
+    background-repeat: no-repeat, no-repeat, repeat;
+  }
+  
+  .bg-sacred-dots {
+    background-image: var(--pattern-byzantine-dots);
+    background-size: 60px 60px;
+  }
+  
+  /* Sacred Gradient Utilities */
+  .bg-sacred-gradient {
+    background: var(--gradient-sacred-primary);
+  }
+  
+  .bg-sacred-gradient-subtle {
+    background: var(--gradient-sacred-subtle);
+  }
+  
+  .bg-sacred-gradient-background {
+    background: var(--gradient-sacred-background);
+  }
+  
+  /* Sacred Animation Utilities */
+  .animate-sacred-float {
+    animation: sacred-float 6s ease-in-out infinite;
+  }
+  
+  .animate-sacred-glow {
+    animation: sacred-glow 2s ease-in-out infinite alternate;
+  }
+  
+  .animate-sacred-pulse {
+    animation: sacred-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-sacred-marquee {
+    animation: sacred-marquee 30s linear infinite;
+  }
+  
+  .animate-sacred-shimmer {
+    animation: sacred-shimmer 3s ease-in-out infinite;
+  }
+  
+  /* Sacred Transform Utilities */
+  .hover-lift {
+    transition: transform var(--duration-sacred-normal) ease-out;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px);
+  }
+  
+  .hover-scale {
+    transition: transform var(--duration-sacred-normal) ease-out;
+  }
+  
+  .hover-scale:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Sacred Shadow Utilities */
+  .shadow-sacred-sm {
+    box-shadow: var(--shadow-sacred-sm);
+  }
+  
+  .shadow-sacred {
+    box-shadow: var(--shadow-sacred-md);
+  }
+  
+  .shadow-sacred-lg {
+    box-shadow: var(--shadow-sacred-lg);
+  }
+  
+  .shadow-sacred-glow {
+    box-shadow: var(--shadow-sacred-glow);
+  }
+  
+  /* Sacred Text Utilities */
+  .text-shadow-sacred {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  .text-shadow-glow {
+    text-shadow: 0 0 16px rgba(246, 196, 83, 0.5);
+  }
+  
+  /* RTL/LTR Specific Utilities */
+  .ltr-only {
+    direction: ltr;
+    text-align: left;
+  }
+  
+  .rtl-only {
+    direction: rtl;
+    text-align: right;
+  }
+  
+  /* Sacred Color Utilities */
+  .text-sacred-gold {
+    color: var(--sacred-gold);
+  }
+  
+  .text-sacred-gold-light {
+    color: var(--sacred-gold-light);
+  }
+  
+  .text-sacred-amber {
+    color: var(--sacred-amber);
+  }
+  
+  .text-sacred-maroon {
+    color: var(--sacred-maroon);
+  }
+  
+  .bg-sacred-gold {
+    background-color: var(--sacred-gold);
+  }
+  
+  .bg-sacred-amber {
+    background-color: var(--sacred-amber);
+  }
+  
+  .bg-sacred-maroon {
+    background-color: var(--sacred-maroon);
+  }
+  
+  .border-sacred-gold {
+    border-color: var(--sacred-gold);
+  }
+}
+
+/* ========================================
+   SACRED ANIMATIONS
+   ======================================== */
+@keyframes sacred-float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+}
+
+@keyframes sacred-glow {
+  0% {
+    box-shadow: 0 0 20px rgba(246, 196, 83, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 40px rgba(246, 196, 83, 0.4);
+  }
+}
+
+@keyframes sacred-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes sacred-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes sacred-shimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes sacred-fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Added keyframes for logo flame & smoke */
+@keyframes flame-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes flame-spin-rev { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
+@keyframes smoke-rise {
+  0% { transform: translateY(30px) scale(0.95); opacity: 0.35; }
+  50% { transform: translateY(-20px) scale(1); opacity: 0.55; }
+  100% { transform: translateY(25px) scale(0.97); opacity: 0.35; }
+}
+@keyframes inner-pulse {
+  0%,100% { opacity: 0.75; filter: brightness(1); }
+  50% { opacity: 1; filter: brightness(1.25); }
+}
+@keyframes slow-pulse { 0%,100% { opacity: .55; } 50% { opacity: .9; } }
+@keyframes flame-breathe {
+  0% { transform: translate(-50%, -50%) scale(0.92) rotate(0deg); opacity: 0.55; filter: hue-rotate(-8deg) brightness(1); }
+  25% { transform: translate(-50%, -50%) scale(1) rotate(3deg); opacity: 0.85; filter: hue-rotate(-2deg) brightness(1.1); }
+  50% { transform: translate(-50%, -50%) scale(1.05) rotate(-2deg); opacity: 0.9; filter: hue-rotate(4deg) brightness(1.15); }
+  75% { transform: translate(-50%, -50%) scale(0.98) rotate(2deg); opacity: 0.8; filter: hue-rotate(-4deg) brightness(1.05); }
+  100% { transform: translate(-50%, -50%) scale(0.92) rotate(0deg); opacity: 0.55; filter: hue-rotate(-8deg) brightness(1); }
+}
+@keyframes flame-tongue-rise {
+  0% { transform: translate(-50%, 40px) scaleY(0.6) scaleX(0.5); opacity: 0; filter: blur(8px) hue-rotate(-10deg); }
+  15% { opacity: 0.8; }
+  40% { transform: translate(-50%, -40px) scaleY(1) scaleX(0.75); opacity: 0.9; filter: blur(4px) hue-rotate(-3deg); }
+  70% { transform: translate(-50%, -120px) scaleY(0.85) scaleX(0.55); opacity: 0.4; filter: blur(6px) hue-rotate(6deg); }
+  100% { transform: translate(-50%, -160px) scaleY(0.5) scaleX(0.3); opacity: 0; filter: blur(10px) hue-rotate(12deg); }
+}
+
+@keyframes sacred-fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sacred-zoom-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ========================================
+   RESPONSIVE ENHANCEMENTS
+   ======================================== */
+@media (max-width: 768px) {
+  :root {
+    --font-size-sacred-display: clamp(2rem, 12vw, 4rem);
+    --font-size-sacred-heading: clamp(1.5rem, 8vw, 2.5rem);
+  }
+  
+  .btn-sacred,
+  .btn-sacred-outline {
+    @apply px-4 py-2 text-sm;
+  }
+  
+  .card-sacred {
+    @apply p-4;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY ENHANCEMENTS
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-sacred-float,
+  .animate-sacred-glow,
+  .animate-sacred-pulse,
+  .animate-sacred-marquee,
+  .animate-sacred-shimmer {
+    animation: none !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  :root {
+    --sacred-gold: #ffcc00;
+    --sacred-gold-light: #ffdd33;
+    --sacred-amber: #ff9900;
+  }
+  
+  .text-sacred-gradient {
+    background: var(--sacred-gold);
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+    color: var(--sacred-gold);
+  }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+@media print {
+  .no-print,
+  .nav-sacred,
+  .btn-sacred,
+  .btn-sacred-outline,
+  .btn-sacred-ghost {
+    display: none !important;
+  }
+  
+  .bg-sacred-pattern,
+  .bg-sacred-gradient,
+  .shadow-sacred,
+  .shadow-sacred-glow {
+    background: none !important;
+    box-shadow: none !important;
+  }
+  
+  .text-sacred-gradient {
+    color: #000 !important;
+    background: none !important;
+    -webkit-text-fill-color: #000 !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}

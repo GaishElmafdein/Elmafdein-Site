@@ -1,0 +1,135 @@
+{
+  "metadata": {
+    "site": {
+      "title": "Gaish Elmafdein - Orthodox Digital Cathedral",
+      "description": "Comprehensive Orthodox digital platform featuring live radio streaming, patristic library, and AI-powered theological defense",
+      "keywords": "Orthodox Christianity, Christian radio, patristic library, Christian apologetics, Coptic Church, Christian heritage"
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "radio": "Radio",
+    "library": "Library",
+    "ask": "Ask",
+    "about": "About",
+    "language": "Language",
+    "start": "Get Started"
+  },
+  "hero": {
+    "title": "Digital",
+    "titleHighlight": "Orthodox Cathedral",
+    "subtitle": "Live streaming, patristic library, and AI-powered apologetics — with a premium experience inspired by Byzantine art.",
+    "listenNow": "Listen Now",
+    "askNow": "Ask Gaish Elmafdein",
+    "features": [
+      "⛪ Patristic Heritage",
+      "🎙️ 24/7 Radio",
+      "📚 PDF Library",
+      "🛡️ Apologetics",
+      "🕯️ Icons",
+      "🌍 Multiple Languages",
+      "🤝 Community & Service"
+    ]
+  },
+  "features": {
+    "title": "Platform Features",
+    "items": [
+      {
+        "title": "Redeemed Radio",
+        "description": "Live streaming and memorable clips + daily program.",
+        "icon": "radio"
+      },
+      {
+        "title": "Patristic Library",
+        "description": "Books, manuscripts, and documented quotes.",
+        "icon": "bookOpen"
+      },
+      {
+        "title": "Ask Gaish Elmafdein",
+        "description": "Accurate Orthodox responses in Arabic and dialects.",
+        "icon": "messageSquareQuote"
+      },
+      {
+        "title": "Documented Reference",
+        "description": "Church sources with scholarly verification and textual criticism.",
+        "icon": "shieldCheck"
+      },
+      {
+        "title": "Multilingual",
+        "description": "Classical/dialect Arabic + global languages later.",
+        "icon": "globe2"
+      },
+      {
+        "title": "Living Community",
+        "description": "XP, challenges, and volunteer contributions.",
+        "icon": "heartHandshake"
+      }
+    ]
+  },
+  "radio": {
+    "title": "🎙️ Redeemed Radio — Now Playing",
+    "description": "Listen to 24/7 live streaming with patristic intermissions and spiritual hymns. Google Cast support coming soon.",
+    "nowPlaying": "Now Playing",
+    "playlist": [
+      "🔴 Byzantine Chants — Live Stream",
+      "🕯️ Hourly Patristic Quote — St. Athanasius",
+      "📖 Daily Reading — Today's Gospel"
+    ],
+    "note": "* Test data — connect later with AzuraCast/OBS."
+  },
+  "library": {
+    "title": "📚 Digital Patristic Library",
+    "description": "PDF books, patristic texts, and documented quotes with smart search and filtering by author and topic.",
+    "search": "Search the library...",
+    "filters": {
+      "all": "All Books",
+      "liturgy": "Liturgy",
+      "theology": "Theology", 
+      "patrology": "Patrology",
+      "apologetics": "Apologetics"
+    }
+  },
+  "ask": {
+    "title": "🤖 Ask Gaish Elmafdein",
+    "description": "AI that answers from Orthodox sources only — choose formal or dialectal Arabic.",
+    "placeholder": "Write your theological question…",
+    "submit": "Ask Now",
+    "language": {
+      "formal": "Formal",
+      "dialect": "Dialect"
+    },
+    "style": {
+      "detailed": "Detailed",
+      "brief": "Brief",
+      "crushing": "Crushing"
+    }
+  },
+  "about": {
+    "title": "Why \"Digital Cathedral\"?",
+    "description": "We draw inspiration from the beauty of icons and Byzantine architecture and transform it into a modern web experience: golden gradients, subtle patterns, and smooth movement without exaggeration.",
+    "features": [
+      "Clear and respectful Orthodox identity.",
+      "High speed and performance (Tailwind + Next.js).",
+      "Scalability: connecting radio, library, and Q&A bot."
+    ]
+  },
+  "footer": {
+    "copyright": "© {year} Gaish Elmafdein — Digital Cathedral",
+    "tagline": "Designed with traditional spirit and modern tools: Tailwind + Framer Motion",
+    "links": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use",
+      "contact": "Contact Us"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "close": "Close",
+    "open": "Open",
+    "download": "Download",
+    "share": "Share",
+    "search": "Search"
+  }
+}

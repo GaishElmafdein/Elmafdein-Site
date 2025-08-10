@@ -1,0 +1,25 @@
+ERROR:    LIB: fail took=0.00s err=module 'cache' has no attribute 'make_key'
+Traceback (most recent call last):
+  File "C:\Users\minav\Gaish-Elmafdein\backend\main.py", line 243, in api_library
+    data, cached_flag, tried = await search_books(q, site, max_pages, max_follow)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\minav\Gaish-Elmafdein\backend\main.py", line 169, in search_books
+    cache_key = daycache.make_key(site, query, max_pages, max_follow, version)
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'cache' has no attribute 'make_key'
+ERROR:    LIB: fail took=0.00s err=module 'cache' has no attribute 'make_key'
+Traceback (most recent call last):
+  File "C:\Users\minav\Gaish-Elmafdein\backend\main.py", line 243, in api_library
+    data, cached_flag, tried = await search_books(q, site, max_pages, max_follow)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\minav\Gaish-Elmafdein\backend\main.py", line 169, in search_books
+    cache_key = daycache.make_key(site, query, max_pages, max_follow, version)
+                ^^^^^^^^^^^^^^^^^
+AttributeError: module 'cache' has no attribute 'make_key'
+ERROR:    LIB: fail took=0.00s err=module 'cache' has no attribute 'make_key'
+Traceback (most recent call last):
+  File "C:\Users\minav\Gaish-Elmafdein\backend\main.py", line 243, in api_library
+  File "C:\Users\minav\Gaish-Elmafdein\backend\main.py", line 169, in search_books
+    return results
+                ^^^
+AttributeError: module 'cache' has no attribute 'make_key'

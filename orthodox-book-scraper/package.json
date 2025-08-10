@@ -1,0 +1,29 @@
+{
+  "name": "orthodox-book-scraper",
+  "version": "1.0.0",
+  "description": "Robust web scraper for Orthodox Christian books from coptic-treasures.com and christianlib.com",
+  "main": "scraper.js",
+  "type": "module",
+  "scripts": {
+    "install-browsers": "playwright install",
+    "scrape": "node scraper.js",
+    "test": "node scraper.js --keyword 'liturgy' --headful"
+  },
+  "keywords": [
+    "web-scraping",
+    "orthodox",
+    "christian",
+    "books",
+    "playwright"
+  ],
+  "author": "Gaish Elmafdein",
+  "license": "MIT",
+  "dependencies": {
+    "playwright": "^1.40.0",
+    "commander": "^11.1.0",
+    "user-agents": "^1.0.1412"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0"
+  }
+}
