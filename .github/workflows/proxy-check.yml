@@ -8,7 +8,7 @@ on:
         required: false
         default: ''
   push:
-    branches: [ main ]   # يشغّل فحص الإنتاج تلقائيًا بعد الدفع
+    branches: [ main ]
 
 concurrency:
   group: proxy-smoke-${{ github.ref }}
@@ -17,72 +17,97 @@ concurrency:
 permissions:
   contents: read
 
+env:
+  PREVIEW_URL: ${{ secrets.VERCEL_PREVIEW_URL }}
+  PROD_URL: ${{ secrets.PROD_URL }}
+
 jobs:
+  determine:
+    runs-on: ubuntu-latest
+    outputs:
+      preview_should_run: ${{ steps.set.outputs.preview_should_run }}
+      prod_should_run: ${{ steps.set.outputs.prod_should_run }}
+    steps:
+      - id: set
+        run: |
+          set -e
+          PREVIEW_RUN=""
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.test_base }}" ]; then
+            PREVIEW_RUN=true
+          elif [ "${{ github.event_name }}" = "push" ] && [ -n "${{ secrets.VERCEL_PREVIEW_URL }}" ]; then
+            PREVIEW_RUN=true
+          fi
+          if [ -n "${{ secrets.PROD_URL }}" ]; then
+            echo "prod_should_run=true" >> $GITHUB_OUTPUT
+          else
+            echo "prod_should_run=" >> $GITHUB_OUTPUT
+          fi
+          if [ -n "$PREVIEW_RUN" ]; then
+            echo "preview_should_run=true" >> $GITHUB_OUTPUT
+          else
+            echo "preview_should_run=" >> $GITHUB_OUTPUT
+          fi
+          echo "Computed preview_should_run=$PREVIEW_RUN"
+
   preview:
-    name: Preview
-    # Run if: (manual dispatch with non-empty input) OR (push with secret available)
-    if: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.test_base != '') || (github.event_name == 'push' && secrets.VERCEL_PREVIEW_URL != '') }}
+    needs: determine
+    if: ${{ needs.determine.outputs.preview_should_run == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    env:
-      TEST_BASE: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.test_base || secrets.VERCEL_PREVIEW_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Warmup target
+      - name: Set TEST_BASE
+        id: base
         run: |
-          if [ -z "${TEST_BASE}" ]; then echo "TEST_BASE empty; nothing to test"; exit 1; fi
-          echo "Warming ${TEST_BASE}/api/health"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.test_base }}" ]; then
+            echo "TEST_BASE=${{ github.event.inputs.test_base }}" >> $GITHUB_ENV
+          else
+            echo "TEST_BASE=${{ secrets.VERCEL_PREVIEW_URL }}" >> $GITHUB_ENV
+          fi
+          echo "Using TEST_BASE=$TEST_BASE"
+      - name: Warmup
+        run: |
+          echo "Warmup ${TEST_BASE}/api/health"
           curl -sS -m 20 -f "${TEST_BASE}/api/health" || true
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-
       - name: Install deps
         working-directory: gaish-elmafdein-nextjs
         run: npm ci
-
-      - name: Run proxy smoke (preview)
+      - name: Run proxy smoke
         working-directory: gaish-elmafdein-nextjs
-        env:
-          TEST_BASE: ${{ env.TEST_BASE }}
         run: |
           echo "Testing against $TEST_BASE"
           node ../scripts/test-proxy.mjs || (echo "Retry after 5s..." && sleep 5 && node ../scripts/test-proxy.mjs)
 
   prod:
-    name: Production
-    if: ${{ secrets.PROD_URL != '' }}
+    needs: determine
+    if: ${{ needs.determine.outputs.prod_should_run == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    env:
-      TEST_BASE: ${{ secrets.PROD_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Warmup target
+      - name: Set TEST_BASE
         run: |
-          if [ -z "${TEST_BASE}" ]; then echo "TEST_BASE empty; nothing to test"; exit 1; fi
-          echo "Warming ${TEST_BASE}/api/health"
+          echo "TEST_BASE=${{ secrets.PROD_URL }}" >> $GITHUB_ENV
+          echo "Using TEST_BASE=$TEST_BASE"
+      - name: Warmup
+        run: |
+          echo "Warmup ${TEST_BASE}/api/health"
           curl -sS -m 20 -f "${TEST_BASE}/api/health" || true
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-
       - name: Install deps
         working-directory: gaish-elmafdein-nextjs
         run: npm ci
-
       - name: Run proxy smoke (prod)
         working-directory: gaish-elmafdein-nextjs
-        env:
-          TEST_BASE: ${{ env.TEST_BASE }}
         run: |
           echo "Testing against $TEST_BASE"
           node ../scripts/test-proxy.mjs || (echo "Retry after 5s..." && sleep 5 && node ../scripts/test-proxy.mjs)
