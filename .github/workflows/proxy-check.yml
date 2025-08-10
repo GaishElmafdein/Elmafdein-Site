@@ -4,22 +4,18 @@ on:
   workflow_dispatch:
     inputs:
       test_base:
-        description: 'Base URL to test (optional)'
+        description: "Override base URL for preview run"
         required: false
-        default: ''
+        default: ""
   push:
     branches: [ main ]
-
-concurrency:
-  group: proxy-smoke-${{ github.ref }}
-  cancel-in-progress: true
 
 permissions:
   contents: read
 
-env:
-  PREVIEW_URL: ${{ secrets.VERCEL_PREVIEW_URL }}
-  PROD_URL: ${{ secrets.PROD_URL }}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   determine:
@@ -27,87 +23,85 @@ jobs:
     outputs:
       preview_should_run: ${{ steps.set.outputs.preview_should_run }}
       prod_should_run: ${{ steps.set.outputs.prod_should_run }}
+      preview_base: ${{ steps.set.outputs.preview_base }}
+      prod_base: ${{ steps.set.outputs.prod_base }}
     steps:
-      - id: set
+      - name: Compute flags
+        id: set
         run: |
-          set -e
-          PREVIEW_RUN=""
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.test_base }}" ]; then
-            PREVIEW_RUN=true
-          elif [ "${{ github.event_name }}" = "push" ] && [ -n "${{ secrets.VERCEL_PREVIEW_URL }}" ]; then
-            PREVIEW_RUN=true
-          fi
-          if [ -n "${{ secrets.PROD_URL }}" ]; then
-            echo "prod_should_run=true" >> $GITHUB_OUTPUT
-          else
-            echo "prod_should_run=" >> $GITHUB_OUTPUT
-          fi
-          if [ -n "$PREVIEW_RUN" ]; then
+          PREVIEW_INPUT="${{ github.event.inputs.test_base }}"
+          PREVIEW_SECRET="${{ secrets.VERCEL_PREVIEW_URL }}"
+          PROD_SECRET="${{ secrets.PROD_URL }}"
+
+          # preview base
+          if [ -n "$PREVIEW_INPUT" ]; then
+            echo "preview_base=$PREVIEW_INPUT" >> $GITHUB_OUTPUT
+            echo "preview_should_run=true" >> $GITHUB_OUTPUT
+          elif [ -n "$PREVIEW_SECRET" ]; then
+            echo "preview_base=$PREVIEW_SECRET" >> $GITHUB_OUTPUT
             echo "preview_should_run=true" >> $GITHUB_OUTPUT
           else
-            echo "preview_should_run=" >> $GITHUB_OUTPUT
+            echo "preview_base=" >> $GITHUB_OUTPUT
+            echo "preview_should_run=false" >> $GITHUB_OUTPUT
           fi
-          echo "Computed preview_should_run=$PREVIEW_RUN"
+
+          # prod base
+            if [ -n "$PROD_SECRET" ]; then
+              echo "prod_base=$PROD_SECRET" >> $GITHUB_OUTPUT
+              echo "prod_should_run=true" >> $GITHUB_OUTPUT
+            else
+              echo "prod_base=" >> $GITHUB_OUTPUT
+              echo "prod_should_run=false" >> $GITHUB_OUTPUT
+            fi
 
   preview:
     needs: determine
-    if: ${{ needs.determine.outputs.preview_should_run == 'true' }}
+    if: needs.determine.outputs.preview_should_run == 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set TEST_BASE
-        id: base
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.test_base }}" ]; then
-            echo "TEST_BASE=${{ github.event.inputs.test_base }}" >> $GITHUB_ENV
-          else
-            echo "TEST_BASE=${{ secrets.VERCEL_PREVIEW_URL }}" >> $GITHUB_ENV
-          fi
-          echo "Using TEST_BASE=$TEST_BASE"
-      - name: Warmup
-        run: |
-          echo "Warmup ${TEST_BASE}/api/health"
-          curl -sS -m 20 -f "${TEST_BASE}/api/health" || true
+      - uses: actions/checkout@v4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - name: Install deps
-        working-directory: gaish-elmafdein-nextjs
-        run: npm ci
-      - name: Run proxy smoke
-        working-directory: gaish-elmafdein-nextjs
+          node-version-file: .nvmrc
+          cache: 'npm'
+
+      - name: Warmup
+        env:
+          TEST_BASE: ${{ needs.determine.outputs.preview_base }}
         run: |
-          echo "Testing against $TEST_BASE"
-          node ../scripts/test-proxy.mjs || (echo "Retry after 5s..." && sleep 5 && node ../scripts/test-proxy.mjs)
+          echo "TEST_BASE=$TEST_BASE"
+          curl -sS "$TEST_BASE/api/health" || exit 1
+
+      - name: Run smoke tests (preview)
+        env:
+          TEST_BASE: ${{ needs.determine.outputs.preview_base }}
+        run: |
+          node scripts/test-proxy.mjs
 
   prod:
     needs: determine
-    if: ${{ needs.determine.outputs.prod_should_run == 'true' }}
+    if: needs.determine.outputs.prod_should_run == 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set TEST_BASE
-        run: |
-          echo "TEST_BASE=${{ secrets.PROD_URL }}" >> $GITHUB_ENV
-          echo "Using TEST_BASE=$TEST_BASE"
-      - name: Warmup
-        run: |
-          echo "Warmup ${TEST_BASE}/api/health"
-          curl -sS -m 20 -f "${TEST_BASE}/api/health" || true
+      - uses: actions/checkout@v4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - name: Install deps
-        working-directory: gaish-elmafdein-nextjs
-        run: npm ci
-      - name: Run proxy smoke (prod)
-        working-directory: gaish-elmafdein-nextjs
+          node-version-file: .nvmrc
+          cache: 'npm'
+
+      - name: Warmup
+        env:
+          TEST_BASE: ${{ needs.determine.outputs.prod_base }}
         run: |
-          echo "Testing against $TEST_BASE"
-          node ../scripts/test-proxy.mjs || (echo "Retry after 5s..." && sleep 5 && node ../scripts/test-proxy.mjs)
+          echo "TEST_BASE=$TEST_BASE"
+          curl -sS "$TEST_BASE/api/health" || exit 1
+
+      - name: Run smoke tests (prod)
+        env:
+          TEST_BASE: ${{ needs.determine.outputs.prod_base }}
+        run: |
+          node scripts/test-proxy.mjs
