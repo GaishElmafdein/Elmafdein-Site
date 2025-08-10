@@ -19,64 +19,70 @@ permissions:
 
 jobs:
   preview:
-    name: Preview (input or secret)
+    name: Preview
+    # Run if: (manual dispatch with non-empty input) OR (push with secret available)
+    if: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.test_base != '') || (github.event_name == 'push' && secrets.VERCEL_PREVIEW_URL != '') }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
-      TEST_BASE: ${{ github.event.inputs.test_base != '' && github.event.inputs.test_base || secrets.VERCEL_PREVIEW_URL }}
+      TEST_BASE: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.test_base || secrets.VERCEL_PREVIEW_URL }}
     steps:
-      - name: Validate TEST_BASE
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Warmup target
         run: |
-          if [ -z "${TEST_BASE}" ]; then
-            echo "TEST_BASE is empty (provide input or set VERCEL_PREVIEW_URL secret)"; exit 1;
-          fi
-          if ! echo "$TEST_BASE" | grep -Eq "^https?://"; then
-            echo "Invalid TEST_BASE (must start with http/https)"; exit 1;
-          fi
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: '20' }
+          if [ -z "${TEST_BASE}" ]; then echo "TEST_BASE empty; nothing to test"; exit 1; fi
+          echo "Warming ${TEST_BASE}/api/health"
+          curl -sS -m 20 -f "${TEST_BASE}/api/health" || true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
       - name: Install deps
         working-directory: gaish-elmafdein-nextjs
         run: npm ci
-      - name: Warmup
-        run: |
-          set -e
-          for p in "/" "/api/health" "/ar/library"; do
-            echo "→ GET $TEST_BASE$p"
-            curl -sS -m 20 -f "$TEST_BASE$p" >/dev/null || true
-          done
-      - name: Run proxy smoke
+
+      - name: Run proxy smoke (preview)
         working-directory: gaish-elmafdein-nextjs
         env:
           TEST_BASE: ${{ env.TEST_BASE }}
         run: |
-          node ../scripts/test-proxy.mjs || (echo "first try failed; retrying…" && sleep 5 && node ../scripts/test-proxy.mjs)
+          echo "Testing against $TEST_BASE"
+          node ../scripts/test-proxy.mjs || (echo "Retry after 5s..." && sleep 5 && node ../scripts/test-proxy.mjs)
 
   prod:
-    name: Production (PROD_URL secret)
-    needs: [ preview ]
+    name: Production
     if: ${{ secrets.PROD_URL != '' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
       TEST_BASE: ${{ secrets.PROD_URL }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: '20' }
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Warmup target
+        run: |
+          if [ -z "${TEST_BASE}" ]; then echo "TEST_BASE empty; nothing to test"; exit 1; fi
+          echo "Warming ${TEST_BASE}/api/health"
+          curl -sS -m 20 -f "${TEST_BASE}/api/health" || true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
       - name: Install deps
         working-directory: gaish-elmafdein-nextjs
         run: npm ci
-      - name: Warmup
-        run: |
-          for p in "/" "/api/health" "/ar/library"; do
-            echo "→ GET $TEST_BASE$p"
-            curl -sS -m 20 -f "$TEST_BASE$p" >/dev/null || true
-          done
+
       - name: Run proxy smoke (prod)
         working-directory: gaish-elmafdein-nextjs
         env:
           TEST_BASE: ${{ env.TEST_BASE }}
         run: |
-          node ../scripts/test-proxy.mjs || (echo "first try failed; retrying…" && sleep 5 && node ../scripts/test-proxy.mjs)
+          echo "Testing against $TEST_BASE"
+          node ../scripts/test-proxy.mjs || (echo "Retry after 5s..." && sleep 5 && node ../scripts/test-proxy.mjs)
