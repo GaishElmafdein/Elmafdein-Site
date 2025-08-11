@@ -1,6 +1,7 @@
 // Unified ESLint flat config for Next.js + custom rules
 import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
+import pluginImport from 'eslint-plugin-import';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
@@ -11,9 +12,11 @@ const compat = new FlatCompat({ baseDirectory: __dirname });
 const config = [
   js.configs.recommended,
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  pluginImport.flatConfigs.recommended,
   {
     rules: {
       'no-unused-vars': ['error', { args: 'none', ignoreRestSiblings: true, varsIgnorePattern: '^_' }],
+      'import/order': ['warn', { "newlines-between": 'always', alphabetize: { order: 'asc', caseInsensitive: true } }],
       'react-hooks/exhaustive-deps': 'warn',
       '@next/next/no-img-element': 'off',
       'react/no-unescaped-entities': 'off'
