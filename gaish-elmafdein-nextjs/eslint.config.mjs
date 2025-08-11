@@ -1,6 +1,7 @@
 // eslint.config.mjs (grouped simple-import-sort strategy)
 import js from '@eslint/js';
 import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import ts from 'typescript-eslint';
 
@@ -13,7 +14,8 @@ export default [
   },
   {
     plugins: {
-      'simple-import-sort': simpleImportSort
+      'simple-import-sort': simpleImportSort,
+      'react-hooks': reactHooks
     },
     settings: {
       react: {
@@ -45,7 +47,10 @@ export default [
   // React 17+ (automatic runtime) & TypeScript project: these legacy requirements are unnecessary
   'react/react-in-jsx-scope': 'off',
   'react/jsx-uses-react': 'off',
-  'react/prop-types': 'off'
+  'react/prop-types': 'off',
+  // Enforce Hooks rules
+  'react-hooks/rules-of-hooks': 'error',
+  'react-hooks/exhaustive-deps': 'warn'
     }
   }
 ];
