@@ -18,7 +18,7 @@ const config = [
     rules: {
       'no-unused-vars': ['error', { args: 'none', ignoreRestSiblings: true, varsIgnorePattern: '^_' }],
       'no-duplicate-imports': 'error',
-      'import/order': ['warn', { 'newlines-between': 'always', alphabetize: { order: 'asc', caseInsensitive: true }, groups: ['builtin','external','internal','parent','sibling','index','object','type'] }],
+      // Using only simple-import-sort for deterministic ordering (avoid conflicts with import/order)
       'simple-import-sort/imports': 'warn',
       'simple-import-sort/exports': 'warn',
       'react-hooks/exhaustive-deps': 'warn',
