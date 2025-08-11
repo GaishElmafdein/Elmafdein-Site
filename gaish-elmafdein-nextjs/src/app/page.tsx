@@ -13,7 +13,7 @@ export default function Home() {
   // TEMP test unused variable for lint-staged auto-fix demo
   const _tmp = 123;
   // TEMP test TypeScript error (will block pre-push / typecheck) - intentionally calling missing function
-  // notAFunction(); // uncomment to simulate failing commit/push
+  notAFunction(); // should trigger TS error
   const [amenCount, setAmenCount] = useState<number>(172000);
   const [loadingAmen, setLoadingAmen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
