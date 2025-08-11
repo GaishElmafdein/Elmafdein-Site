@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# block push if TS or ESLint fails
+npm run typecheck && npm run lint
