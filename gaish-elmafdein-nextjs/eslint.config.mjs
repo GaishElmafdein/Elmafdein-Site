@@ -1,31 +1,51 @@
-// Unified ESLint flat config for Next.js + custom rules
-import { FlatCompat } from '@eslint/eslintrc';
+// eslint.config.mjs (grouped simple-import-sort strategy)
 import js from '@eslint/js';
+import react from 'eslint-plugin-react';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import ts from 'typescript-eslint';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const compat = new FlatCompat({ baseDirectory: __dirname });
-
-const config = [
-  { ignores: ['.next/**', 'node_modules/**', 'public/sw.js'] },
+export default [
   js.configs.recommended,
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  ...ts.configs.recommended,
+  react.configs.flat.recommended,
   {
-    plugins: { 'simple-import-sort': simpleImportSort },
+    ignores: ['.next', 'public/sw.js']
+  },
+  {
+    plugins: {
+      'simple-import-sort': simpleImportSort
+    },
+    settings: {
+      react: {
+        version: 'detect'
+      }
+    },
     rules: {
-      'no-unused-vars': ['error', { args: 'none', ignoreRestSiblings: true, varsIgnorePattern: '^_' }],
-      'no-duplicate-imports': 'error',
-      // Using only simple-import-sort for deterministic ordering (avoid conflicts with import/order)
-      'simple-import-sort/imports': 'warn',
-      'simple-import-sort/exports': 'warn',
-      'react-hooks/exhaustive-deps': 'warn',
-      '@next/next/no-img-element': 'off',
-      'react/no-unescaped-entities': 'off'
+      'simple-import-sort/imports': [
+        'error',
+        {
+          groups: [
+            // React / Next first
+            ['^react$', '^next', '^next/(.*)'],
+            // Third-party packages (npm)
+            ['^@?\\w'],
+            // Styles (css/scss)
+            ['^.+\\.s?css$'],
+            // Absolute alias imports
+            ['^@/(.*)$'],
+            // Relative imports
+            ['^\\./', '^\\../'],
+            // Type side-effect or virtual imports
+            ['^\\u0000']
+          ]
+        }
+      ],
+      'simple-import-sort/exports': 'error',
+  'no-duplicate-imports': 'error',
+  // React 17+ (automatic runtime) & TypeScript project: these legacy requirements are unnecessary
+  'react/react-in-jsx-scope': 'off',
+  'react/jsx-uses-react': 'off',
+  'react/prop-types': 'off'
     }
   }
 ];
-
-export default config;
