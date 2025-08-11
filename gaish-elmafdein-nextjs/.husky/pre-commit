@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# run lint-staged on staged files only
+# Block any TypeScript errors before committing
+npx tsc --noEmit --incremental false --pretty false
+
+# Apply ESLint/Prettier fixes on staged files
 npx lint-staged
