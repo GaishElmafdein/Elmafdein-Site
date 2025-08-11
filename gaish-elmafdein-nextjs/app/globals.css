@@ -1,9 +1,12 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+/* Arabic font (Tajawal) embedded - removed secondary @import to satisfy ordering */
+/* If needed, include <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" /> in <head>. */
 
-/* Root global styles placeholder - specific sacred theme remains in locale globals for now.
-   This file ensures Tailwind v3 finds at least one global with directives at a stable path. */
+:root {
+   --font-arabic: 'Tajawal', sans-serif;
+}
+
+/* Root global styles placeholder - updated for Tailwind v4 single import */
 
 html { scroll-behavior: smooth; }
 
@@ -11,10 +14,16 @@ body {
    /* Sacred gradient background (restored) */
    background: linear-gradient(135deg, #243b53 0%, #1a1f2e 50%, #16213e 100%);
    color: #fff;
+   font-family: var(--font-arabic), system-ui, sans-serif;
 }
 
 /* Sacred pattern reusable background (replaces inline style in SacredHero) */
 .sacred-pattern-bg {
    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='rgba(246,196,83,0.3)' stroke-width='1'%3E%3Cpath d='M50 10 v80 M10 50 h80'/%3E%3Ccircle cx='50' cy='50' r='20'/%3E%3C/g%3E%3C/svg%3E");
    background-size: 100px 100px;
+}
+
+/* Utility class for Arabic font forcing */
+.font-arabic {
+   font-family: var(--font-arabic), system-ui, sans-serif !important;
 }
