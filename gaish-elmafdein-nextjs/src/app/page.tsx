@@ -10,10 +10,6 @@ import { useRouter } from 'next/navigation';
 
 // Hero homepage restored with placeholder handlers (amen + search) per request.
 export default function Home() {
-  // TEMP test unused variable for lint-staged auto-fix demo
-  const _tmp = 123;
-  // TEMP test TypeScript error (will block pre-push / typecheck) - intentionally calling missing function
-  notAFunction(); // should trigger TS error
   const [amenCount, setAmenCount] = useState<number>(172000);
   const [loadingAmen, setLoadingAmen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
