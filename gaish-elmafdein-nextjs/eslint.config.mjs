@@ -1,20 +1,26 @@
 // Unified ESLint flat config for Next.js + custom rules
 import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
-import { fileURLToPath } from 'url';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const compat = new FlatCompat({ baseDirectory: __dirname });
 
 const config = [
+  { ignores: ['.next/**', 'node_modules/**', 'public/sw.js'] },
   js.configs.recommended,
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
+    plugins: { 'simple-import-sort': simpleImportSort },
     rules: {
       'no-unused-vars': ['error', { args: 'none', ignoreRestSiblings: true, varsIgnorePattern: '^_' }],
-      'import/order': ['warn', { "newlines-between": 'always', alphabetize: { order: 'asc', caseInsensitive: true } }],
+      'no-duplicate-imports': 'error',
+      'import/order': ['warn', { 'newlines-between': 'always', alphabetize: { order: 'asc', caseInsensitive: true }, groups: ['builtin','external','internal','parent','sibling','index','object','type'] }],
+      'simple-import-sort/imports': 'warn',
+      'simple-import-sort/exports': 'warn',
       'react-hooks/exhaustive-deps': 'warn',
       '@next/next/no-img-element': 'off',
       'react/no-unescaped-entities': 'off'
