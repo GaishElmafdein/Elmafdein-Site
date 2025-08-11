@@ -7,10 +7,14 @@
  * TODO: ✅ SEO metadata
  */
 
+import { Cairo,Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
-import { Inter, Cairo } from 'next/font/google';
+
 import './styles/globals.css';
 import './styles/fonts.css';
+
+import { getMetadata, locales } from './layout.utils';
+export { generateStaticParams } from './layout.utils';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -24,31 +28,11 @@ const cairo = Cairo({
   display: 'swap',
 });
 
-const locales = ['ar', 'en'];
 
-interface Props {
-  children: React.ReactNode;
-  params: { locale: string };
-}
-
-function getMetadata(locale: string) {
-  const isArabic = locale === 'ar';
-  
-  return {
-    title: isArabic 
-      ? 'جيش المفديين - كاتدرائية رقمية أرثوذكسية'
-      : 'Gaish Elmafdein - Orthodox Digital Cathedral',
-    description: isArabic
-      ? 'منصة أرثوذكسية رقمية شاملة تضم بث راديو مباشر، مكتبة آبائية، وردود دفاعية مدعومة بالذكاء الاصطناعي'
-      : 'Comprehensive Orthodox digital platform featuring live radio streaming, patristic library, and AI-powered theological defense',
-    keywords: isArabic
-      ? 'أرثوذكسية, راديو مسيحي, مكتبة آبائية, دفاعيات مسيحية, كنيسة قبطية, تراث مسيحي'
-      : 'Orthodox Christianity, Christian radio, patristic library, Christian apologetics, Coptic Church, Christian heritage'
-  };
-}
+interface Props { children: React.ReactNode; params: { locale: string }; }
 
 export async function generateMetadata({ params: { locale } }: Props) {
-  const meta = getMetadata(locale);
+  const meta = getMetadata(locale as 'ar' | 'en');
   
   return {
     title: {
@@ -81,10 +65,6 @@ export async function generateMetadata({ params: { locale } }: Props) {
       ],
     },
   };
-}
-
-export async function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
 }
 
 export default async function LocaleLayout({ children, params: { locale } }: Props) {

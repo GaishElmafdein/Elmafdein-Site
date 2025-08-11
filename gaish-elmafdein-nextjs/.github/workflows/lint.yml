@@ -1,0 +1,26 @@
+name: Lint Hooks Only
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  hooks-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: gaish-elmafdein-nextjs/package-lock.json
+      - name: Install
+        working-directory: gaish-elmafdein-nextjs
+        run: npm ci || npm install
+      - name: Hooks Rules Only
+        working-directory: gaish-elmafdein-nextjs
+        run: npx eslint --ext .ts,.tsx --rule 'react-hooks/*:error'

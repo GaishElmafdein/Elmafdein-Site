@@ -1,24 +1,15 @@
 // eslint.config.mjs (grouped simple-import-sort strategy)
-import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
-import path from 'node:path';
 import ts from 'typescript-eslint';
 
-// Re-enable Next.js recommended rules (lightweight) using FlatCompat adapter
-const compat = new FlatCompat({
-  baseDirectory: path.resolve(process.cwd())
-});
-
-const config = [
+export default [
   js.configs.recommended,
   ...ts.configs.recommended,
   react.configs.flat.recommended,
-  // Next.js core web vitals & recommended (using legacy config bridge)
-  ...compat.config({ extends: ['next', 'next/core-web-vitals'] }),
   {
     ignores: ['.next', 'public/sw.js']
   },
@@ -61,16 +52,27 @@ const config = [
   'react/prop-types': 'off',
   // Enforce Hooks rules
   'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn'
-    }
-  },
-  // Apply react-refresh rule only to component / hook source files
-  {
-    files: ['**/*.{ts,tsx}'],
-    rules: {
-      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }]
+  'react-hooks/exhaustive-deps': 'warn',
+  // Fast Refresh integrity: only export components (escalated to error)
+  // Allow required Next.js metadata export while still preventing utility exports
+      'react-refresh/only-export-components': [
+        'error',
+        {
+          allowConstantExport: true,
+          allowExportNames: [
+            'metadata',
+            'generateMetadata',
+            'generateStaticParams',
+            'viewport',
+            'dynamic',
+            'revalidate',
+            'fetchCache',
+            'runtime',
+            'preferredRegion',
+            'config'
+          ]
+        }
+      ]
     }
   }
 ];
-
-export default config;

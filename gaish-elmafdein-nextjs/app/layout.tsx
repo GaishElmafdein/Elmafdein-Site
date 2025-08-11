@@ -1,15 +1,9 @@
-import './globals.css'
-import type { ReactNode } from 'react'
+import type { ReactNode } from 'react';
 
-export const metadata = {
-  title: 'Gaish Elmafdein',
-  description: 'Orthodox Digital Cathedral',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000')
-}
+import './globals.css';
 
-export const viewport = {
-  themeColor: '#243b53'
-}
+import { metadata, viewport } from './layout.constants';
+export { metadata, viewport };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
