@@ -1,12 +1,16 @@
 "use client";
 
-import { useState, FormEvent, useEffect } from 'react';
-import { Sword, Radio, BookOpen, Brain, Search } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { toast } from 'react-hot-toast';
-import { OrthodoxCross } from '@/components/ui/orthodox-cross';
-import { SacredBackground } from '@/components/ui/sacred-background';
+import { FormEvent, useEffect,useState } from 'react';
 import { useRouter } from 'next/navigation';
+
+import { motion } from 'framer-motion';
+import { BookOpen, Brain, Radio, Search,Sword } from 'lucide-react';
+import { toast } from 'react-hot-toast';
+
+import { OrthodoxCross } from '@/components/ui/orthodox-cross';
+import CrossField from '@/components/ui/CrossField';
+import { SacredBackground } from '@/components/ui/sacred-background';
+
 
 // Hero homepage restored with placeholder handlers (amen + search) per request.
 export default function Home() {
@@ -62,6 +66,18 @@ export default function Home() {
     <>
       <SacredBackground />
       <main className="relative min-h-screen flex flex-col items-center justify-center p-4 overflow-hidden">
+        {/* خلفية صلبان متوهجة تطير لأعلى */}
+        <CrossField
+          density={110}
+          sizeMin={9}
+          sizeMax={20}
+          speedMin={16}
+          speedMax={36}
+          armThicknessRatio={0.22}
+          colors={["#F6C453","#FFC870","#FFAE52","#FFD27A"]}
+          baseAlpha={0.24}
+          glow={14}
+        />
         {/* Header */}
         <motion.header
           className="absolute top-6 left-6 right-6 flex justify-between items-center z-20"

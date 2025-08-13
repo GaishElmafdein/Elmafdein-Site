@@ -1,7 +1,8 @@
 // Supabase client (browser) and server helpers
 // Env vars required: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY
-import { createBrowserClient, createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+
+import { type CookieOptions,createBrowserClient, createServerClient } from '@supabase/ssr'
 
 export const getSupabaseBrowser = () => {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL!
@@ -22,10 +23,22 @@ export const getSupabaseServer = async () => {
         return cookieStore?.get?.(name)?.value
       },
       set(name: string, value: string, options: CookieOptions) {
-        try { cookieStore?.set?.({ name, value, ...options }) } catch {}
+        try {
+          cookieStore?.set?.({ name, value, ...options })
+        } catch (err) {
+          if (process.env.NODE_ENV !== 'production') {
+            console.warn('[supabase cookies] set failed', err)
+          }
+        }
       },
       remove(name: string, options: CookieOptions) {
-        try { cookieStore?.set?.({ name, value: '', ...options }) } catch {}
+        try {
+          cookieStore?.set?.({ name, value: '', ...options })
+        } catch (err) {
+          if (process.env.NODE_ENV !== 'production') {
+            console.warn('[supabase cookies] remove failed', err)
+          }
+        }
       }
     }
   })

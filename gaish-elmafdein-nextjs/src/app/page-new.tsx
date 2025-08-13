@@ -1,11 +1,13 @@
 'use client'
 
+import { useState } from 'react'
+
 import { motion } from 'framer-motion'
-import { Search, Radio, BookOpen, Sword, Volume2 } from 'lucide-react'
+import { BookOpen, Radio, Search, Sword, Volume2 } from 'lucide-react'
+import toast from 'react-hot-toast'
+
 import { OrthodoxCross } from '@/components/ui/orthodox-cross'
 import { SacredBackground } from '@/components/ui/sacred-background'
-import { useState } from 'react'
-import toast from 'react-hot-toast'
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('')

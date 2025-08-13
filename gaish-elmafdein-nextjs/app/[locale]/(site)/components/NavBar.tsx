@@ -10,7 +10,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Church, Sparkles, Menu, X, Globe } from 'lucide-react';
+
+import { Church, Globe,Menu, Sparkles, X } from 'lucide-react';
 
 interface NavBarProps {
   locale: string;

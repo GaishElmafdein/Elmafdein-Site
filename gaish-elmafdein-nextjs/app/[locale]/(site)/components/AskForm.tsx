@@ -8,9 +8,10 @@
 
 'use client';
 
-import { motion } from 'framer-motion';
-import { MessageSquareQuote, Send, Settings, Languages } from 'lucide-react';
 import { useState } from 'react';
+
+import { motion } from 'framer-motion';
+import { Languages,MessageSquareQuote, Send, Settings } from 'lucide-react';
 
 interface AskFormProps {
   locale: string;

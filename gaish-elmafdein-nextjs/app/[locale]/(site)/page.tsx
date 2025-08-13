@@ -6,7 +6,7 @@
  * TODO: ✅ All sections working
  */
 
-import { Church, Radio, BookOpen, MessageSquareQuote, ShieldCheck, Globe2, HeartHandshake } from 'lucide-react';
+import { BookOpen, Church, Globe2, HeartHandshake,MessageSquareQuote, Radio, ShieldCheck } from 'lucide-react';
 
 interface PageProps {
   params: { locale: string };

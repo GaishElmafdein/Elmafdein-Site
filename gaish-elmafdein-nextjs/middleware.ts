@@ -40,6 +40,8 @@ function getPreferredLocale(request: NextRequest): string {
  */
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
+  const ua = request.headers.get('user-agent') || ''
+  const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(ua)
   
   // Skip middleware for static files and API routes
   if (
@@ -55,10 +57,20 @@ export function middleware(request: NextRequest) {
   const locale = getLocale(pathname)
   
   if (!locale) {
-    // No locale in pathname, redirect to preferred locale
+    // No locale in pathname, redirect to preferred locale (mobile first landing if mobile)
     const preferredLocale = getPreferredLocale(request)
+    if (isMobile) {
+      const mobileUrl = new URL(`/${preferredLocale}/mobile`, request.url)
+      return NextResponse.redirect(mobileUrl)
+    }
     const newUrl = new URL(`/${preferredLocale}${pathname}`, request.url)
     return NextResponse.redirect(newUrl)
+  }
+
+  // If already at locale root (/ar or /en) and mobile -> show mobile landing once
+  if (isMobile && (pathname === '/ar' || pathname === '/en')) {
+    const mobileUrl = new URL(`${pathname}/mobile`, request.url)
+    return NextResponse.redirect(mobileUrl)
   }
   
   // Locale is present and valid, continue

@@ -1,8 +1,10 @@
-import pdfParse from 'pdf-parse'
-import mammoth from 'mammoth'
 import { createBrowserClient } from '@supabase/ssr'
-import { chunkText } from './chunk'
+import mammoth from 'mammoth'
 import OpenAI from 'openai'
+import pdfParse from 'pdf-parse'
+
+import { chunkText } from './chunk'
+
 
 export interface UploadIngestOptions { title: string; author?: string; lang?: string; source?: string }
 

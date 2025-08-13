@@ -9,7 +9,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Church, Heart, ExternalLink } from 'lucide-react';
+import { Church, ExternalLink,Heart } from 'lucide-react';
 
 interface FooterProps {
   locale: string;

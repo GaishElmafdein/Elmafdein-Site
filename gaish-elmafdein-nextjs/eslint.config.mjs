@@ -53,7 +53,10 @@ export default [
   // Enforce Hooks rules
   'react-hooks/rules-of-hooks': 'error',
   'react-hooks/exhaustive-deps': 'warn',
-  // Fast Refresh integrity: only export components (escalated to error)
+    {
+      plugins: ['next'],
+      extends: ['next'],
+    },
   // Allow required Next.js metadata export while still preventing utility exports
       'react-refresh/only-export-components': [
         'error',

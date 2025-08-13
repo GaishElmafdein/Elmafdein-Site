@@ -1,5 +1,7 @@
 import { redirect } from 'next/navigation'
+
 import { getSupabaseServer } from '@/lib/supabaseClient'
+
 import AdminClient from './ui/AdminClient'
 
 interface PageProps { params: Promise<{ locale: string }> }

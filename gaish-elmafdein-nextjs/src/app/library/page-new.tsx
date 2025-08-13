@@ -1,28 +1,30 @@
 "use client"
 
-import { useState, useEffect, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useCallback,useEffect, useState } from 'react'
 import Image from 'next/image'
+
+import { AnimatePresence,motion } from 'framer-motion'
 import { 
-  Search, 
+  AlertCircle,
+  BookOpen,
+  ChevronLeft,
+  ChevronRight,
+  Clock,
+  Database,
   Download, 
+  ExternalLink,
+  FileText,
+  Globe,
   Grid, 
   List, 
   RefreshCw,
-  ExternalLink,
-  Globe,
-  Clock,
-  Database,
-  ChevronLeft,
-  ChevronRight,
-  BookOpen,
-  FileText,
-  AlertCircle,
+  Search, 
   // Loader2 (removed unused)
 } from 'lucide-react'
 import { toast } from 'react-hot-toast'
-import { SacredBackground } from '@/components/ui/sacred-background'
+
 import { OrthodoxCross } from '@/components/ui/orthodox-cross'
+import { SacredBackground } from '@/components/ui/sacred-background'
 
 // Types for the new API
 interface Book {

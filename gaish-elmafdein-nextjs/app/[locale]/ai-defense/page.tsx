@@ -1,5 +1,7 @@
-import SacredNavBar from '@/components/ui/SacredNavBar'
 import { Suspense } from 'react'
+
+import SacredNavBar from '@/components/ui/SacredNavBar'
+
 import AIDefenseClient from './ui/AIDefenseClient'
 
 interface PageProps { params: Promise<{ locale: string }> }

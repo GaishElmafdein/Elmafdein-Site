@@ -15,28 +15,28 @@
 
 'use client'
 
+import { useRef } from 'react'
+import Link from 'next/link'
+
 import { motion, useInView } from 'framer-motion'
 import { 
-  Radio, 
-  BookOpen, 
-  MessageCircle,
-  Play,
-  Users,
-  BookMarked,
-  Zap,
-  Shield,
-  Heart,
-  ArrowRight,
   ArrowLeft,
-  Headphones,
-  Download,
+  ArrowRight,
+  BookMarked,
+  BookOpen, 
   Brain,
   Clock,
+  Download,
   Globe,
-  Star
-} from 'lucide-react'
-import Link from 'next/link'
-import { useRef } from 'react'
+  Headphones,
+  Heart,
+  MessageCircle,
+  Play,
+  Radio, 
+  Shield,
+  Star,
+  Users,
+  Zap} from 'lucide-react'
 
 /**
  * Sacred Feature Grid Props

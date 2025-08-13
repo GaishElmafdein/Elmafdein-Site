@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+
 import { createClient } from '@supabase/supabase-js'
 import mammoth from 'mammoth'
 import OpenAI from 'openai'
@@ -125,8 +126,19 @@ async function extractText(buf: Buffer, pathOrUrl: string) {
 }
 
 // pdf-parse page renderer (typed loosely without relying on internal types)
-function defaultPageRenderer(pageData: { getTextContent: () => Promise<{ items: { str: string }[] }> }) {
-  return pageData.getTextContent().then(tc => tc.items.map(i => i.str).join(' '))
+function defaultPageRenderer(pageData: unknown) {
+  if (
+    pageData &&
+    typeof pageData === 'object' &&
+    'getTextContent' in pageData &&
+    typeof (pageData as { getTextContent?: unknown }).getTextContent === 'function'
+  ) {
+    type TextItem = { str: string }
+    type TextContent = { items: TextItem[] }
+    const getTextContent = (pageData as { getTextContent: () => Promise<TextContent> }).getTextContent
+    return getTextContent().then(tc => tc.items.map(i => i.str).join(' '))
+  }
+  return ''
 }
 
 function detectLang(s: string): 'ar' | 'en' | 'ar-eg' {

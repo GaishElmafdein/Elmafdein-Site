@@ -1,3 +1,513 @@
+/* ==== must be first ==== */
+
+@import "tailwindcss";
+
+/* Sacred tokens */
+:root {
+  --gold-200:#fde68a; --gold-300:#fcd34d; --gold-400:#fbbf24; --gold-500:#f59e0b;
+  --amber-200:#fde68a; --amber-300:#fcd34d; --amber-400:#fbbf24; --amber-500:#f59e0b; --amber-600:#d97706;
+  --red-500:#ef4444;
+  --glow-amber: 0 0 25px rgba(246,196,83,.25);
+  --text-glow-amber: 0 0 6px rgba(246,196,83,.25);
+  color-scheme: dark;
+}
+
+@layer utilities {
+  .font-arabic { font-family: var(--font-cairo), system-ui, sans-serif; }
+  .font-cairo-play { font-family: 'Cairo Play', var(--font-cairo), system-ui, sans-serif; font-weight: 700; letter-spacing: 0.4px; }
+  .font-lemonada { font-family: var(--font-lemonada), 'Lemonada', var(--font-cairo), cursive; font-weight: 800; }
+  .font-kufi   { font-family: var(--font-reemkufi), var(--font-cairo), sans-serif; }
+  .font-amiri  { font-family: var(--font-amiri), serif; }
+  .font-lateef { font-family: var(--font-lateef), var(--font-cairo), cursive; }
+  .font-hero-kufi {
+    font-family: var(--font-reemkufi), var(--font-cairo), sans-serif;
+    font-weight: 600; letter-spacing: .4px; line-height: 1.17;
+  }
+
+  .text-glow-amber { text-shadow: var(--text-glow-amber); }
+  .shadow-glow-amber { box-shadow: var(--glow-amber); }
+  .bg-gradient-gold {
+    background-image: linear-gradient(to right,var(--amber-200),var(--amber-400),var(--amber-600));
+  }
+
+  /* توهج ذهبي ناعم حول الحروف */
+  .glow-gold{
+    text-shadow:
+      0 0 6px rgba(246,196,83,.35),
+      0 0 14px rgba(246,160,60,.22);
+  }
+
+  /* نور متحرك يمر داخل النص + جريدينت الأساس */
+  .moving-light{
+    background-image:
+      linear-gradient(90deg, rgba(255,235,180,0) 0%,
+                             rgba(255,235,180,.95) 50%,
+                             rgba(255,235,180,0) 100%),
+      inherit;
+    background-size: 26% 100%, 240% 240%;
+    background-position: -40% 0, 0 0;
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    animation: sweep 3.4s linear infinite, pulseGlow 5.5s ease-in-out infinite;
+    filter: saturate(1.18) brightness(1.08);
+  }
+
+  @keyframes sweep{
+    0%   { background-position: -40% 0, 0 0; }
+    100% { background-position: 140% 0, 200% 0; }
+  }
+  @keyframes pulseGlow{
+    0%,100% { filter: saturate(1.12) brightness(1.06); }
+    50%     { filter: saturate(1.28) brightness(1.18); }
+  }
+}
+
+html { scroll-behavior:smooth; }
+body {
+  font-feature-settings: "rlig" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* Arabic Display Hero Font (heavier, wider tracking) */
+.font-arabic-hero {
+  font-family: var(--font-lemonada), var(--font-cairo), sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1.15;
+}
+
+.font-arabic-hero-alt {
+  font-family: var(--font-cairo), var(--font-lemonada), sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  line-height: 1.18;
+}
+
+.font-arabic-hero-kufi {
+  font-family: var(--font-reemkufi), var(--font-cairo), var(--font-lemonada), sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  line-height: 1.17;
+}
+
+.font-arabic-hero-ruqaa {
+  font-family: var(--font-arefruqaa), var(--font-cairo), serif;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  line-height: 1.1;
+}
+/* ==== must be first ==== */
+
+@import "tailwindcss";
+
+/* ==== must be first ==== */
+
+@import "tailwindcss";
+
+/* Sacred tokens */
+:root {
+  --gold-200:#fde68a; --gold-300:#fcd34d; --gold-400:#fbbf24; --gold-500:#f59e0b;
+  --amber-200:#fde68a; --amber-300:#fcd34d; --amber-400:#fbbf24; --amber-500:#f59e0b; --amber-600:#d97706;
+  --red-500:#ef4444;
+  --glow-amber: 0 0 25px rgba(246,196,83,.25);
+  --text-glow-amber: 0 0 6px rgba(246,196,83,.25);
+  color-scheme: dark;
+}
+
+@layer utilities {
+  .font-arabic { font-family: var(--font-cairo), system-ui, sans-serif; }
+  .font-kufi   { font-family: var(--font-reemkufi), var(--font-cairo), sans-serif; }
+  .font-amiri  { font-family: var(--font-amiri), serif; }
+  .font-lateef { font-family: var(--font-lateef), var(--font-cairo), cursive; }
+  .font-hero-kufi {
+    font-family: var(--font-reemkufi), var(--font-cairo), sans-serif;
+    font-weight: 600; letter-spacing: .4px; line-height: 1.17;
+  }
+
+  .text-glow-amber { text-shadow: var(--text-glow-amber); }
+  .shadow-glow-amber { box-shadow: var(--glow-amber); }
+  .bg-gradient-gold {
+    background-image: linear-gradient(to right,var(--amber-200),var(--amber-400),var(--amber-600));
+  }
+}
+
+html { scroll-behavior:smooth; }
+body {
+  font-feature-settings: "rlig" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* ❌ احذف أو علّق قواعد تغيير الخط العامة دي لأنها بتغلب .font-arabic
+
+
+/* Arabic Display Hero Font (heavier, wider tracking) */
+.font-arabic-hero {
+  font-family: var(--font-lemonada), var(--font-cairo), sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1.15;
+}
+
+.font-arabic-hero-alt {
+  font-family: var(--font-cairo), var(--font-lemonada), sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  line-height: 1.18;
+}
+
+/* New Reem Kufi based display font */
+.font-arabic-hero-kufi {
+  font-family: var(--font-reemkufi), var(--font-cairo), var(--font-lemonada), sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  line-height: 1.17;
+}
+
+/* Ornamental Ruqaa style for dramatic hero lines */
+.font-arabic-hero-ruqaa {
+  font-family: var(--font-arefruqaa), var(--font-cairo), serif;
+  font-weight: 700;
+  letter-spacing: 0.2px; /* Ruqaa is naturally compact */
+  line-height: 1.1;
+}
+
+/* RTL Typography */
+
+/* AI Confidence Bar */
+.confidence-bar {
+  transition: width 0.5s ease-in-out;
+}
+
+/* Sacred Animations */
+@keyframes sacred-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(241, 196, 15, 0.5);
+  }
+  50% {
+    opacity: 0.8;
+    box-shadow: 0 0 40px rgba(241, 196, 15, 0.8);
+  }
+}
+
+@keyframes holy-float {
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-10px); 
+  }
+}
+
+.animate-sacred-pulse {
+  animation: sacred-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-holy-float {
+  animation: holy-float 3s ease-in-out infinite;
+}
+
+/* Sacred Gradients */
+.bg-sacred-gradient {
+  background: linear-gradient(to bottom right, #1a202c, #243b53, #1a202c);
+}
+
+.bg-divine-radial {
+  background: radial-gradient(circle at center, rgba(241, 196, 15, 0.1) 0%, transparent 70%);
+}
+
+.text-sacred-gold {
+  background: linear-gradient(to right, #f8d330, #f1c40f, #d4af37);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Sacred Borders */
+.border-sacred {
+  border: 1px solid rgba(241, 196, 15, 0.3);
+  box-shadow: 0 4px 6px rgba(241, 196, 15, 0.2);
+}
+
+.border-sacred-glow {
+  border: 1px solid #f1c40f;
+  box-shadow: 
+    0 0 20px rgba(241, 196, 15, 0.3),
+    0 0 40px rgba(241, 196, 15, 0.1),
+    inset 0 0 10px rgba(241, 196, 15, 0.1);
+}
+
+/* Sacred Buttons */
+.btn-sacred {
+  padding: 1rem 2rem;
+  background: linear-gradient(to right, #f1c40f, #d4af37);
+  color: #243b53;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f8d330;
+  transition: all 0.3s ease;
+  transform: scale(1);
+}
+
+.btn-sacred:hover {
+  background: linear-gradient(to right, #f8d330, #f1c40f);
+  box-shadow: 0 8px 15px rgba(241, 196, 15, 0.3);
+  transform: scale(1.05);
+}
+
+.btn-sacred-outline {
+  padding: 1rem 2rem;
+  background: transparent;
+  color: #f1c40f;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  border: 2px solid #f1c40f;
+  transition: all 0.3s ease;
+  transform: scale(1);
+}
+
+.btn-sacred-outline:hover {
+  background: #f1c40f;
+  color: #243b53;
+  box-shadow: 0 8px 15px rgba(241, 196, 15, 0.3);
+  transform: scale(1.05);
+}
+:root {
+   --font-arabic: 'Cairo', 'Lemonada', 'Amiri', 'Aref Ruqaa', 'Lateef', 'Reem Kufi', sans-serif;
+}
+
+html,
+body {
+   font-family: var(--font-arabic);
+   direction: rtl;
+}
+
+.font-arabic {
+   font-family: var(--font-arabic) !important;
+   direction: rtl;
+}
+@import "tailwindcss";
+/* Arabic font (Tajawal) embedded - removed secondary @import to satisfy ordering */
+/* If needed, include <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" /> in <head>. */
+
+:root {
+   --font-arabic: 'Tajawal', sans-serif;
+}
+
+/* Root global styles placeholder - updated for Tailwind v4 single import */
+
+html { scroll-behavior: smooth; }
+
+body {
+   /* Sacred gradient background (restored) */
+   background: linear-gradient(135deg, #243b53 0%, #1a1f2e 50%, #16213e 100%);
+   color: #fff;
+   font-family: var(--font-arabic), system-ui, sans-serif;
+}
+
+/* Sacred pattern reusable background (replaces inline style in SacredHero) */
+.sacred-pattern-bg {
+   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='rgba(246,196,83,0.3)' stroke-width='1'%3E%3Cpath d='M50 10 v80 M10 50 h80'/%3E%3Ccircle cx='50' cy='50' r='20'/%3E%3C/g%3E%3C/svg%3E");
+   background-size: 100px 100px;
+}
+
+/* Utility class for Arabic font forcing */
+.font-arabic {
+   font-family: var(--font-arabic), system-ui, sans-serif !important;
+}
+/* ==== must be first ==== */
+
+@import "tailwindcss";
+
+/* ==== must be first ==== */
+
+@import "tailwindcss";
+
+/* Sacred tokens */
+:root {
+  --gold-200:#fde68a; --gold-300:#fcd34d; --gold-400:#fbbf24; --gold-500:#f59e0b;
+  --amber-200:#fde68a; --amber-300:#fcd34d; --amber-400:#fbbf24; --amber-500:#f59e0b; --amber-600:#d97706;
+  --red-500:#ef4444;
+  --glow-amber: 0 0 25px rgba(246,196,83,.25);
+  --text-glow-amber: 0 0 6px rgba(246,196,83,.25);
+  color-scheme: dark;
+}
+
+@layer utilities {
+  .font-arabic { font-family: var(--font-cairo), system-ui, sans-serif; }
+  .font-kufi   { font-family: var(--font-reemkufi), var(--font-cairo), sans-serif; }
+  .font-amiri  { font-family: var(--font-amiri), serif; }
+  .font-lateef { font-family: var(--font-lateef), var(--font-cairo), cursive; }
+  .font-hero-kufi {
+    font-family: var(--font-reemkufi), var(--font-cairo), sans-serif;
+    font-weight: 600; letter-spacing: .4px; line-height: 1.17;
+  }
+
+  .text-glow-amber { text-shadow: var(--text-glow-amber); }
+  .shadow-glow-amber { box-shadow: var(--glow-amber); }
+  .bg-gradient-gold {
+    background-image: linear-gradient(to right,var(--amber-200),var(--amber-400),var(--amber-600));
+  }
+}
+
+html { scroll-behavior:smooth; }
+body {
+  font-feature-settings: "rlig" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* ❌ احذف أو علّق قواعد تغيير الخط العامة دي لأنها بتغلب .font-arabic
+
+
+/* Arabic Display Hero Font (heavier, wider tracking) */
+.font-arabic-hero {
+  font-family: var(--font-lemonada), var(--font-cairo), sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1.15;
+}
+
+.font-arabic-hero-alt {
+  font-family: var(--font-cairo), var(--font-lemonada), sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  line-height: 1.18;
+}
+
+/* New Reem Kufi based display font */
+.font-arabic-hero-kufi {
+  font-family: var(--font-reemkufi), var(--font-cairo), var(--font-lemonada), sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  line-height: 1.17;
+}
+
+/* Ornamental Ruqaa style for dramatic hero lines */
+.font-arabic-hero-ruqaa {
+  font-family: var(--font-arefruqaa), var(--font-cairo), serif;
+  font-weight: 700;
+  letter-spacing: 0.2px; /* Ruqaa is naturally compact */
+  line-height: 1.1;
+}
+
+/* RTL Typography */
+
+/* AI Confidence Bar */
+.confidence-bar {
+  transition: width 0.5s ease-in-out;
+}
+
+/* Sacred Animations */
+@keyframes sacred-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(241, 196, 15, 0.5);
+  }
+  50% {
+    opacity: 0.8;
+    box-shadow: 0 0 40px rgba(241, 196, 15, 0.8);
+  }
+}
+
+@keyframes holy-float {
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-10px); 
+  }
+}
+
+.animate-sacred-pulse {
+  animation: sacred-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-holy-float {
+  animation: holy-float 3s ease-in-out infinite;
+}
+
+/* Sacred Gradients */
+.bg-sacred-gradient {
+  background: linear-gradient(to bottom right, #1a202c, #243b53, #1a202c);
+}
+
+.bg-divine-radial {
+  background: radial-gradient(circle at center, rgba(241, 196, 15, 0.1) 0%, transparent 70%);
+}
+
+.text-sacred-gold {
+  background: linear-gradient(to right, #f8d330, #f1c40f, #d4af37);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Sacred Borders */
+.border-sacred {
+  border: 1px solid rgba(241, 196, 15, 0.3);
+  box-shadow: 0 4px 6px rgba(241, 196, 15, 0.2);
+}
+
+.border-sacred-glow {
+  border: 1px solid #f1c40f;
+  box-shadow: 
+    0 0 20px rgba(241, 196, 15, 0.3),
+    0 0 40px rgba(241, 196, 15, 0.1),
+    inset 0 0 10px rgba(241, 196, 15, 0.1);
+}
+
+/* Sacred Buttons */
+.btn-sacred {
+  padding: 1rem 2rem;
+  background: linear-gradient(to right, #f1c40f, #d4af37);
+  color: #243b53;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f8d330;
+  transition: all 0.3s ease;
+  transform: scale(1);
+}
+
+.btn-sacred:hover {
+  background: linear-gradient(to right, #f8d330, #f1c40f);
+  box-shadow: 0 8px 15px rgba(241, 196, 15, 0.3);
+  transform: scale(1.05);
+}
+
+.btn-sacred-outline {
+  padding: 1rem 2rem;
+  background: transparent;
+  color: #f1c40f;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  border: 2px solid #f1c40f;
+  transition: all 0.3s ease;
+  transform: scale(1);
+}
+
+.btn-sacred-outline:hover {
+  background: #f1c40f;
+  color: #243b53;
+  box-shadow: 0 8px 15px rgba(241, 196, 15, 0.3);
+  transform: scale(1.05);
+}
+:root {
+   --font-arabic: 'Cairo', 'Lemonada', 'Amiri', 'Aref Ruqaa', 'Lateef', 'Reem Kufi', sans-serif;
+}
+
+html,
+body {
+   font-family: var(--font-arabic);
+   direction: rtl;
+}
+
+.font-arabic {
+   font-family: var(--font-arabic) !important;
+   direction: rtl;
+}
 @import "tailwindcss";
 /* Arabic font (Tajawal) embedded - removed secondary @import to satisfy ordering */
 /* If needed, include <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" /> in <head>. */

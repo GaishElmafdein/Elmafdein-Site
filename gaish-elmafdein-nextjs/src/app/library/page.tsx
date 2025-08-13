@@ -1,12 +1,14 @@
 "use client"
 
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { Search, RefreshCw, ExternalLink, Download, BookOpen } from 'lucide-react'
+import { useEffect,useState } from 'react'
 import Image from 'next/image'
+
+import { motion } from 'framer-motion'
+import { BookOpen,Download, ExternalLink, RefreshCw, Search } from 'lucide-react'
 import { toast } from 'react-hot-toast'
-import { SacredBackground } from '@/components/ui/sacred-background'
+
 import { OrthodoxCross } from '@/components/ui/orthodox-cross'
+import { SacredBackground } from '@/components/ui/sacred-background'
 
 // Types matching backend exactly
 interface Book {
@@ -38,7 +40,42 @@ export default function LibraryPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [totalCount, setTotalCount] = useState(0)
   const [responseTime, setResponseTime] = useState(0)
+
+  // --- Hero Section ---
+  const hero = (
+    <section className="w-full flex flex-col items-center justify-center py-10 mb-8 bg-gradient-to-b from-gold-100/30 to-midnight-900/10 rounded-xl shadow-lg">
+      <OrthodoxCross size="xl" glowing className="mb-6" />
+      <h1 className="font-arabic text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-gold-600 mb-4 leading-[1.05]">
+        كاتدرائية رقمية
+      </h1>
+      <h2 className="font-arabic text-3xl md:text-4xl lg:text-5xl font-bold text-midnight-700 mb-3 leading-tight">
+        لتسليم الإيمان القويم
+      </h2>
+      <p className="font-arabic text-2xl md:text-3xl text-midnight-700 font-semibold mb-4 text-center leading-snug">
+        المُسلَّم مرة واحدة للقديسين
+      </p>
+      <p className="font-arabic text-lg md:text-2xl text-midnight-600/90 mb-6 text-center max-w-2xl font-medium tracking-wide">
+        بث حي · دفاعيات · آبائيات · مقارنة &quot;ديانات&quot;
+      </p>
+      <blockquote className="text-xs md:text-sm font-arabic text-gold-700/90 italic text-center max-w-xl">
+        &quot;كونوا مستعدين في كل حين لمجاوبة كل من يسألكم عن سبب الرجاء الذي فيكم&quot; – ١ بطرس ٣:١٥
+      </blockquote>
+    </section>
+  )
+
+  // Render hero at the top
+  // ...existing code...
   const [isCached, setIsCached] = useState(false)
+
+  // ...existing code...
+
+  return (
+    <>
+      {hero}
+      {/* ...existing page content... */}
+      {/* The rest of your LibraryPage JSX goes here */}
+    </>
+  )
 
   const fetchBooks = async (query?: string) => {
     setLoading(true)

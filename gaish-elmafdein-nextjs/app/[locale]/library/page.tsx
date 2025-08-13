@@ -27,6 +27,22 @@ type LibraryResponse = {
 };
 
 export default function LibraryPage() {
+  // External search links
+  const externalSearchLinks = {
+    christianlib: 'https://christianlib.com/search',
+    coptictreasures: 'https://coptic-treasures.com/books',
+  };
+
+  // Helper to build params from current state
+  function makeParams(extra?: { q?: string }) {
+    const p = new URLSearchParams();
+    if (extra?.q) p.set('q', extra.q);
+    else if (debouncedQ) p.set('q', debouncedQ);
+    if (site) p.set('site', site);
+    if (maxPages) p.set('max_pages', String(maxPages));
+    if (maxFollow) p.set('max_follow', String(maxFollow));
+    return p;
+  }
   const [q, setQ] = useState("");
   const [debouncedQ, setDebouncedQ] = useState("");
   const [site, setSite] = useState<"" | "coptic" | "christianlib">("");
@@ -85,19 +101,46 @@ export default function LibraryPage() {
 
   // Initial + changes
   useEffect(() => {
-    const p = new URLSearchParams();
-    if (debouncedQ) p.set("q", debouncedQ);
-    if (site) p.set("site", site);
-    if (maxPages) p.set("max_pages", String(maxPages));
-    if (maxFollow) p.set("max_follow", String(maxFollow));
-  requestLibrary(p);
+    const buildParams = (overrideQ?: string) => {
+      const p = new URLSearchParams();
+      if (overrideQ) p.set('q', overrideQ); else if (debouncedQ) p.set('q', debouncedQ);
+      if (site) p.set('site', site);
+      if (maxPages) p.set('max_pages', String(maxPages));
+      if (maxFollow) p.set('max_follow', String(maxFollow));
+      return p;
+    };
+    if (!debouncedQ) {
+      requestLibrary(buildParams('most_downloaded'));
+    } else {
+      requestLibrary(buildParams());
+    }
   }, [debouncedQ, site, maxPages, maxFollow]);
 
   const skeletons = useMemo(() => Array.from({ length: 8 }), []);
 
   return (
     <main className="min-h-screen px-4 md:px-8 py-8">
-      <header className="mb-6">
+      {/* Hero Section */}
+      <section
+        className="w-full flex flex-col items-center justify-center py-6 mb-2 bg-gradient-to-b from-gold-100/30 to-midnight-900/10 rounded-xl shadow-lg"
+      >
+        <h1 className="font-arabic text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-gold-600 mb-4 leading-[1.05]">
+          كاتدرائية رقمية
+        </h1>
+        <h2 className="font-arabic text-3xl md:text-4xl lg:text-5xl font-bold text-midnight-700 mb-3 leading-tight">
+          لتسليم الإيمان القويم
+        </h2>
+        <p className="font-arabic text-2xl md:text-3xl text-midnight-700 font-semibold mb-3 text-center leading-snug">
+          المُسلَّم مرة واحدة للقديسين
+        </p>
+        <p className="font-arabic text-lg md:text-2xl text-midnight-600/90 mb-6 text-center max-w-2xl font-medium tracking-wide">
+          بث حي · دفاعيات · آبائيات · مقارنة &quot;ديانات&quot;
+        </p>
+        <blockquote className="text-xs md:text-sm font-arabic text-gold-700/90 italic text-center max-w-xl">
+          &quot;كونوا مستعدين في كل حين لمجاوبة كل من يسألكم عن سبب الرجاء الذي فيكم&quot; – ١ بطرس ٣:١٥
+        </blockquote>
+      </section>
+  <header className="mb-4">
         <h1 className="text-3xl font-bold text-yellow-400">📚 مكتبة جيش المفديين</h1>
         <p className="text-slate-300">
           بحث مباشر من Coptic Treasures / ChristianLib عبر Proxy داخلي.
@@ -142,16 +185,33 @@ export default function LibraryPage() {
         </select>
       </section>
 
+
+      {/* Direct links block (always visible) */}
+      <div className="mb-4 flex gap-3 flex-wrap">
+        <a
+          href={externalSearchLinks.christianlib}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-100 text-sm"
+        >
+          🔍 فتح بحث ChristianLib مباشرة
+        </a>
+        <a
+          href={externalSearchLinks.coptictreasures}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-100 text-sm"
+        >
+          📚 فتح قائمة Coptic Treasures مباشرة
+        </a>
+      </div>
+
       {err && (
         <div className="mb-4 rounded-xl border border-red-700 bg-red-900/40 text-red-200 px-4 py-3">
           خطأ في جلب النتائج: {err}
           <button
             onClick={() => {
-              const p = new URLSearchParams();
-              if (q) p.set('q', q);
-              if (site) p.set('site', site);
-              if (maxPages) p.set('max_pages', String(maxPages));
-              requestLibrary(p);
+              requestLibrary(makeParams());
             }}
             className="ml-2 underline"
           >

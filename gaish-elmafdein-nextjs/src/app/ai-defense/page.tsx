@@ -1,11 +1,13 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { Send, Brain, BookOpen, TrendingUp, BarChart3, Users, Zap } from 'lucide-react'
-import { OrthodoxCross } from '@/components/ui/orthodox-cross'
-import { useState, useRef, useEffect } from 'react'
-import toast from 'react-hot-toast'
+import { useEffect,useRef, useState } from 'react'
 import Link from 'next/link'
+
+import { motion } from 'framer-motion'
+import { BarChart3, BookOpen, Brain, Send, TrendingUp, Users, Zap } from 'lucide-react'
+import toast from 'react-hot-toast'
+
+import { OrthodoxCross } from '@/components/ui/orthodox-cross'
 
 interface Message {
   id: string

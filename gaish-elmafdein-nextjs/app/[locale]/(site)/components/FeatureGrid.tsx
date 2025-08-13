@@ -9,7 +9,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Radio, BookOpen, MessageSquareQuote, ShieldCheck, Globe2, HeartHandshake } from 'lucide-react';
+import { BookOpen, Globe2, HeartHandshake,MessageSquareQuote, Radio, ShieldCheck } from 'lucide-react';
 
 interface FeatureGridProps {
   locale: string;

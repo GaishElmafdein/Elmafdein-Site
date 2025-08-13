@@ -15,6 +15,9 @@
 
 'use client'
 
+import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
+
 import { motion, useAnimation, useInView } from 'framer-motion'
 import { 
   ArrowLeft,
@@ -26,8 +29,6 @@ import {
   Search, 
   Shield
 } from 'lucide-react'
-import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
 
 import { mulberry32, randRange } from '@/lib/prng'
 

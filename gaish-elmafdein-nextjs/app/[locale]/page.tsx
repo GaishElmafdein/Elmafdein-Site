@@ -14,10 +14,11 @@
  */
 
 import { Metadata } from 'next'
-import SacredNavBar from '@/components/ui/SacredNavBar'
+
+import SacredFeatureGrid from '@/components/ui/SacredFeatureGrid'
 import SacredHero from '@/components/ui/SacredHero'
 import SacredLogoHero from '@/components/ui/SacredLogoHero'
-import SacredFeatureGrid from '@/components/ui/SacredFeatureGrid'
+import SacredNavBar from '@/components/ui/SacredNavBar'
 
 /**
  * Sacred Page Props Interface

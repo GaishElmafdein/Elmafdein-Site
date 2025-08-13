@@ -1,10 +1,10 @@
 // RAG ingestion script (node -r ts-node/register scripts/ingest.ts <pdfPath>)
 // Outline only; implement parsing + chunking + embedding upsert
+import { createClient } from '@supabase/supabase-js'
 import fs from 'fs'
+import OpenAI from 'openai'
 import path from 'path'
 import pdfParse from 'pdf-parse'
-import { createClient } from '@supabase/supabase-js'
-import OpenAI from 'openai'
 
 const CHUNK_SIZE = 1000
 const CHUNK_OVERLAP = 120

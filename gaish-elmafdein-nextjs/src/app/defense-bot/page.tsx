@@ -1,11 +1,13 @@
 'use client'
 
+import { useState } from 'react'
+import Link from 'next/link'
+
 import { motion } from 'framer-motion'
 import { Send } from 'lucide-react'
-import { OrthodoxCross } from '@/components/ui/orthodox-cross'
-import { useState } from 'react'
 import toast from 'react-hot-toast'
-import Link from 'next/link'
+
+import { OrthodoxCross } from '@/components/ui/orthodox-cross'
 
 export default function DefenseBotPage() {
   const [message, setMessage] = useState('')

@@ -1,7 +1,8 @@
 /* RAG core utilities */
 import OpenAI from 'openai'
+
+import { ABUSE_REGEX, ANSWER_COMPOSER_TEMPLATE, EMPTY_INSUFFICIENT, StructuredAnswer,SYSTEM_PROMPT } from './ragPrompts'
 import { getSupabaseServer } from './supabaseClient'
-import { SYSTEM_PROMPT, ANSWER_COMPOSER_TEMPLATE, ABUSE_REGEX, EMPTY_INSUFFICIENT, StructuredAnswer } from './ragPrompts'
 
 export interface RetrievedChunk {
   id: number

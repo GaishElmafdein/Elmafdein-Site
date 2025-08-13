@@ -10,7 +10,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { PlayCircle, MessageSquareQuote, ChevronDown } from 'lucide-react';
+import { ChevronDown,MessageSquareQuote, PlayCircle } from 'lucide-react';
 
 interface HeroProps {
   locale: string;

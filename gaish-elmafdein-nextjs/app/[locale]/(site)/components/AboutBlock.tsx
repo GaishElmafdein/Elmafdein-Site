@@ -9,7 +9,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Zap, Shield, Code, CheckCircle } from 'lucide-react';
+import { CheckCircle,Code, Shield, Zap } from 'lucide-react';
 
 interface AboutBlockProps {
   locale: string;

@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from 'react'
+
 import ReactMarkdown from 'react-markdown'
 
 interface Props { locale: string }
@@ -110,7 +111,7 @@ export default function AIDefenseClient({ locale }: Props) {
                         {s.author && <span className="text-white/50">— {s.author}</span>}
                         {s.locator && <span className="text-white/40">— {s.locator}</span>}
                         <span className="text-white/30">— sim {s.similarity.toFixed(2)}</span>
-                        {s.url && <a href={s.url} target="_blank" className="underline text-sacred-gold/70 hover:text-sacred-gold">{isArabic ? 'رابط' : 'Link'}</a>}
+                        {s.url && <a href={s.url} target="_blank" className="underline text-sacred-gold/70 hover:text-sacred-gold" rel="noreferrer">{isArabic ? 'رابط' : 'Link'}</a>}
                         {typeof s.id === 'number' && (
                           <button
                             type="button"

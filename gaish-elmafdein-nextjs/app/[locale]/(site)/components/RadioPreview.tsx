@@ -8,9 +8,10 @@
 
 'use client';
 
-import { motion } from 'framer-motion';
-import { Play, Pause, Volume2, Radio, Clock } from 'lucide-react';
 import { useState } from 'react';
+
+import { motion } from 'framer-motion';
+import { Clock,Pause, Play, Radio, Volume2 } from 'lucide-react';
 
 interface RadioPreviewProps {
   locale: string;
