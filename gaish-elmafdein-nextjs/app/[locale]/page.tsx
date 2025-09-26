@@ -18,7 +18,8 @@ import { Metadata } from 'next'
 import SacredFeatureGrid from '@/components/ui/SacredFeatureGrid'
 import SacredHero from '@/components/ui/SacredHero'
 import SacredLogoHero from '@/components/ui/SacredLogoHero'
-import SacredNavBar from '@/components/ui/SacredNavBar'
+import SacredModulesStrip from '@/components/ui/SacredModulesStrip'
+import TopRightLangPill from '@/components/ui/TopRightLangPill'
 
 /**
  * Sacred Page Props Interface
@@ -214,10 +215,14 @@ export default async function SacredHomePage({ params }: SacredPageProps) {
       />
       
       {/* Sacred Page Content */}
-      <div className="min-h-screen bg-sacred-pattern">
+      <div className="min-h-screen bg-sacred-pattern pt-6">
+        {/* Small language pill (top-right) */}
+        <TopRightLangPill locale={locale as 'ar'|'en'} />
         
-        {/* Sacred Navigation */}
-        <SacredNavBar locale={locale} />
+        {/* Modules strip under navbar (moved further down) */}
+        <div className="relative z-20 mt-4 md:mt-6">
+          <SacredModulesStrip locale={locale as 'ar' | 'en'} />
+        </div>
         
         {/* Sacred Main Content */}
         <main 

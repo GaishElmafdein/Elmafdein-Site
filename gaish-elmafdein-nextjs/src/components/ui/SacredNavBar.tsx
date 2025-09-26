@@ -204,7 +204,7 @@ export default function SacredNavBar({ locale, className = '' }: NavBarProps) {
         animate="animate"
         variants={navVariants}
         className={`
-          fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out
+          fixed top-2 left-0 right-0 z-50 transition-all duration-500 ease-out
           ${isScrolled 
             ? 'bg-slate-900/90 border-b border-sacred-gold/20 shadow-sacred-lg backdrop-blur-xl' 
             : 'bg-slate-900/40 border-b border-white/5 backdrop-blur-md'
@@ -217,7 +217,7 @@ export default function SacredNavBar({ locale, className = '' }: NavBarProps) {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20">
+          <div className="grid grid-cols-[auto,1fr,auto] items-center h-16 lg:h-20 gap-3">
             
             {/* Sacred Logo & Brand */}
             <motion.div 
@@ -263,58 +263,133 @@ export default function SacredNavBar({ locale, className = '' }: NavBarProps) {
               </Link>
             </motion.div>
             
-            {/* Desktop Navigation Links */}
-            <div className="hidden lg:flex items-center gap-1 xl:gap-2">
-              {SACRED_NAV_ITEMS.map((item) => {
-                const IconComponent = item.icon
-                const isActive = isActiveRoute(item.href)
-                
-                return (
-                  <motion.div key={item.href} whileHover={{ y: -2 }}>
-                    <Link
-                      href={`/${locale}${item.href === '/' ? '' : item.href}`}
-                      className={`
-                        relative flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all duration-300
-                        ${isActive 
-                          ? 'bg-sacred-gold/20 text-sacred-gold border border-sacred-gold/30' 
-                          : 'text-white/80 hover:text-sacred-gold hover:bg-white/5'
-                        }
-                        group focus:outline-none focus:ring-2 focus:ring-sacred-gold focus:ring-offset-2 focus:ring-offset-slate-900
-                      `}
-                      aria-current={isActive ? 'page' : undefined}
+            {/* Center Cluster (Desktop): Search | Nav | Language (RTL), mirrored in LTR */}
+            <div className="hidden lg:flex items-center justify-center gap-2 xl:gap-3 whitespace-nowrap overflow-x-auto no-scrollbar mx-2">
+              {(isArabic ? ['search','nav','lang'] : ['lang','nav','search']).map((part) => (
+                <div key={part} className="flex items-center">
+                  {part === 'search' && (
+                    <motion.div 
+                      className="relative"
+                      animate={isSearchFocused ? { scale: 1.05 } : { scale: 1 }}
                     >
-                      <IconComponent className="w-4 h-4 transition-transform group-hover:scale-110" />
-                      <span className={`text-sm font-medium ${isArabic ? 'font-arabic' : ''}`}>
-                        {isArabic ? item.labelAr : item.labelEn}
-                      </span>
-                      
-                      {/* Badge */}
-                      {item.badge && (
-                        <motion.span 
-                          className="px-2 py-0.5 text-xs font-bold bg-sacred-gradient text-slate-900 rounded-full"
-                          animate={{ scale: [1, 1.1, 1] }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                        >
-                          {item.badge}
-                        </motion.span>
-                      )}
-                      
-                      {/* Active Indicator */}
-                      {isActive && (
-                        <motion.div
-                          layoutId="activeNavItem"
-                          className="absolute inset-0 bg-sacred-gold/10 border border-sacred-gold/20 rounded-xl -z-10"
-                          transition={{ type: 'spring', damping: 20 }}
+                      <div className="relative">
+                        <Search className={`absolute ${isArabic ? 'right-3' : 'left-3'} top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50`} />
+                        <input
+                          type="search"
+                          placeholder={isArabic ? 'البحث في الكاتدرائية...' : 'Search the Cathedral...'}
+                          className={`
+                            w-40 xl:w-56 ${isArabic ? 'pr-10 pl-3 text-right font-arabic' : 'pl-10 pr-3 text-left'} py-2.5 bg-white/10 border border-white/20 rounded-xl 
+                            text-white placeholder-white/50 text-sm transition-all duration-300
+                            focus:outline-none focus:ring-2 focus:ring-sacred-gold focus:border-sacred-gold focus:bg-white/15
+                            backdrop-blur-sm
+                          `}
+                          onFocus={() => setIsSearchFocused(true)}
+                          onBlur={() => setIsSearchFocused(false)}
+                          dir={isArabic ? 'rtl' : 'ltr'}
                         />
-                      )}
-                    </Link>
-                  </motion.div>
-                )
-              })}
+                      </div>
+                    </motion.div>
+                  )}
+                  {part === 'nav' && (
+                    <div className="flex items-center gap-1 xl:gap-2">
+                      {SACRED_NAV_ITEMS.map((item) => {
+                        const IconComponent = item.icon
+                        const isActive = isActiveRoute(item.href)
+                        return (
+                          <motion.div key={item.href} whileHover={{ y: -2 }}>
+                            <Link
+                              href={`/${locale}${item.href === '/' ? '' : item.href}`}
+                              className={`
+                                relative flex items-center gap-2 px-3 py-2.5 rounded-xl transition-all duration-300
+                                ${isActive 
+                                  ? 'bg-sacred-gold/20 text-sacred-gold border border-sacred-gold/30' 
+                                  : 'text-white/80 hover:text-sacred-gold hover:bg-white/5'
+                                }
+                                group focus:outline-none focus:ring-2 focus:ring-sacred-gold focus:ring-offset-2 focus:ring-offset-slate-900
+                              `}
+                              aria-current={isActive ? 'page' : undefined}
+                            >
+                              <IconComponent className="w-4 h-4 transition-transform group-hover:scale-110" />
+                              <span className={`text-sm font-medium ${isArabic ? 'font-arabic' : ''}`}>
+                                {isArabic ? item.labelAr : item.labelEn}
+                              </span>
+                              {item.badge && (
+                                <motion.span 
+                                  className="px-2 py-0.5 text-xs font-bold bg-sacred-gradient text-slate-900 rounded-full"
+                                  animate={{ scale: [1, 1.1, 1] }}
+                                  transition={{ duration: 2, repeat: Infinity }}
+                                >
+                                  {item.badge}
+                                </motion.span>
+                              )}
+                              {isActive && (
+                                <motion.div
+                                  layoutId="activeNavItem"
+                                  className="absolute inset-0 bg-sacred-gold/10 border border-sacred-gold/20 rounded-xl -z-10"
+                                  transition={{ type: 'spring', damping: 20 }}
+                                />
+                              )}
+                            </Link>
+                          </motion.div>
+                        )
+                      })}
+                    </div>
+                  )}
+                  {part === 'lang' && (
+                    <div className="relative">
+                      <motion.button
+                        onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
+                        className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/15 border border-white/20 hover:border-sacred-gold/50 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-sacred-gold"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        aria-label={isArabic ? 'تغيير اللغة' : 'Change Language'}
+                        aria-expanded={isLanguageMenuOpen}
+                      >
+                        <Globe className="w-4 h-4 text-sacred-gold" />
+                        <span className="text-sm font-medium text-white hidden xl:block">
+                          {LANGUAGE_OPTIONS.find(lang => lang.code === locale)?.flag}
+                        </span>
+                        <ChevronDown className={`w-3 h-3 text-white/60 transition-transform ${isLanguageMenuOpen ? 'rotate-180' : ''}`} />
+                      </motion.button>
+                      <AnimatePresence>
+                        {isLanguageMenuOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                            className="absolute right-0 top-full mt-2 w-48 bg-slate-900/95 border border-white/20 rounded-xl shadow-sacred-lg backdrop-blur-xl overflow-hidden z-50"
+                          >
+                            {LANGUAGE_OPTIONS.map((lang) => (
+                              <Link
+                                key={lang.code}
+                                href={`/${lang.code}${pathname.replace(/^\/[a-z]{2}/, '') || ''}`}
+                                className={`
+                                  flex items-center gap-3 px-4 py-3 hover:bg-sacred-gold/10 transition-colors
+                                  ${locale === lang.code ? 'bg-sacred-gold/20 text-sacred-gold' : 'text-white/80 hover:text-white'}
+                                `}
+                                onClick={() => setIsLanguageMenuOpen(false)}
+                              >
+                                <span className="text-xl">{lang.flag}</span>
+                                <span className="font-medium">{lang.name}</span>
+                                {locale === lang.code && (
+                                  <motion.div 
+                                    layoutId="activeLang"
+                                    className="w-2 h-2 bg-sacred-gold rounded-full ml-auto" 
+                                  />
+                                )}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
             
-            {/* Search & Language Controls */}
-            <div className="flex items-center gap-2 lg:gap-4">
+            {/* Right Controls (Mobile-only) */}
+            <div className="flex items-center gap-2 lg:gap-4 lg:hidden">
               
               {/* Sacred Search */}
               <motion.div 
