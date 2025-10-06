@@ -13,9 +13,7 @@
  * ⏳ Dark/light mode variants (Phase 2)
  */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 /* ========================================
    CSS CUSTOM PROPERTIES (SACRED PALETTE)

@@ -191,6 +191,22 @@ body {
   }
 }
 
+/* Dark red pulse specifically for live radio pill */
+@keyframes sacred-pulse-red {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(120, 0, 10, 0.55), 0 0 18px 6px rgba(120,0,10,0.25);
+  }
+  50% {
+    transform: scale(1.015);
+    box-shadow: 0 0 0 6px rgba(120, 0, 15, 0.05), 0 0 28px 10px rgba(160,0,20,0.35);
+  }
+}
+
+.animate-sacred-pulse-red {
+  animation: sacred-pulse-red 2.4s ease-in-out infinite;
+}
+
 @keyframes holy-float {
   0%, 100% { 
     transform: translateY(0px); 

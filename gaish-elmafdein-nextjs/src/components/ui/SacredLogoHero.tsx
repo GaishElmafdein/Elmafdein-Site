@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 // Removed unused imports
 import EmberLogo from "./EmberLogo";
 import SacredFlameHalo from "./SacredFlameHalo";
+import { mulberry32, randRange } from "@/lib/prng";
 
 interface SacredLogoHeroProps {
   locale: string;
@@ -174,26 +175,40 @@ export default function SacredLogoHero({ locale, className = "" }: SacredLogoHer
           >
             <svg width="520" height="520" viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g>
-                {[...Array(18)].map((_, i) => {
-                  const angle = (i * 20);
-                  const x1 = 260 + Math.cos((angle-2) * Math.PI / 180) * 120;
-                  const y1 = 260 + Math.sin((angle-2) * Math.PI / 180) * 120;
-                  const x2 = 260 + Math.cos(angle * Math.PI / 180) * 240;
-                  const y2 = 260 + Math.sin(angle * Math.PI / 180) * 240;
-                  return (
-                    <line
-                      key={i}
-                      x1={x1}
-                      y1={y1}
-                      x2={x2}
-                      y2={y2}
-                      stroke="url(#rayGradient)"
-                      strokeWidth={Math.random() > 0.5 ? 6 : 3}
-                      opacity={0.7 + Math.random() * 0.2}
-                      style={{ filter: 'blur(1.2px)' }}
-                    />
-                  );
-                })}
+                {(() => {
+                  // Deterministic rays to prevent hydration mismatches
+                  // Seed can vary by locale for subtle, stable differences
+                  const seedBase = 20250919;
+                  const seed = seedBase + (locale === 'ar' ? 1 : 2);
+                  const rng = mulberry32(seed);
+
+                  // Helper for consistent rounding between SSR/CSR
+                  const round = (n: number, p = 6) => Number(n.toFixed(p));
+
+                  return Array.from({ length: 18 }).map((_, i) => {
+                    const angle = i * 20;
+                    const rad = (deg: number) => (deg * Math.PI) / 180;
+                    const x1 = round(260 + Math.cos(rad(angle - 2)) * 120);
+                    const y1 = round(260 + Math.sin(rad(angle - 2)) * 120);
+                    const x2 = round(260 + Math.cos(rad(angle)) * 240);
+                    const y2 = round(260 + Math.sin(rad(angle)) * 240);
+                    const strokeWidth = rng() > 0.5 ? 6 : 3;
+                    const opacity = round(randRange(rng, 0.7, 0.9), 12);
+                    return (
+                      <line
+                        key={i}
+                        x1={x1}
+                        y1={y1}
+                        x2={x2}
+                        y2={y2}
+                        stroke="url(#rayGradient)"
+                        strokeWidth={strokeWidth}
+                        opacity={opacity}
+                        style={{ filter: 'blur(1.2px)' }}
+                      />
+                    );
+                  });
+                })()}
               </g>
               <defs>
                 <linearGradient id="rayGradient" x1="0" y1="0" x2="1" y2="1">
